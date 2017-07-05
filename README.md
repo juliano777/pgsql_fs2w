@@ -1,5 +1,5 @@
-->![PostgreSQL logo](img/pg.png)<-
--># Workshop PostgreSQL<-
+![PostgreSQL logo](img/pg.png)
+# Workshop PostgreSQL
 
 
 
