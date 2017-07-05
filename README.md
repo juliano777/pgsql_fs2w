@@ -31,7 +31,10 @@
 <br />Assim como em linguagens de programação “comuns”, existem palavras reservadas, as quais não podem ser usadas como identificadores.
 <br />Cada comando SQL é finalizado com ponto e vírgula (;).<p />
 
-1. **Um SELECT simples retornando uma string:**
+
+
+
+1)  **Um SELECT simples retornando uma string:**
 ```sql
 SELECT 'Um exemplo de string';
 ```
@@ -41,21 +44,27 @@ SELECT 'Um exemplo de string';
  Um exemplo de string
  </pre>
 
-1. **Um SELECT simples retornando uma string:**
+
+2)  **Um SELECT simples com alias retornando uma string:**
 ```sql
- SELECT 'Um exemplo de string' AS apelido;
- ```
- 
+SELECT 'Um exemplo de string' AS apelido;
+```
+<pre>
        apelido        
 ----------------------
  Um exemplo de string
-
+ </pre>
+ 
+ 
+ 3)  **Um SELECT simples com alias contendo espaços retornando uma string:**
 ```sql
- SELECT 'Um exemplo de string' AS "apelido com espaço";
- ```
+SELECT 'Um exemplo de string' AS "apelido com espaço";
+```
+<pre>
   apelido com espaço  
 ----------------------
  Um exemplo de string
+ </pre>
 
 
 
