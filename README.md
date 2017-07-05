@@ -1,6 +1,6 @@
 <p align="center">
-<img src="img/pg.png" />
-<h1 align="center">Workshop PostgreSQL</h1>
+<h1>Workshop</h1>
+<img src="img/pg.png" alt="PostgreSQL logo" />
 </p>
 
 
