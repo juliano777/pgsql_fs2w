@@ -31,7 +31,6 @@
 ---
 **SQL**<a id="sql"></a><p />
 
----
 **Structured Query Language** – **Linguagem Estruturada de Consulta**, é a linguagem usada nos SGBDs relacionais por padrão, no entanto cada um tem suas particularidades dentro da própria linguagem, tendo implementações diferentes.
 <br />O mesmo objetivo pode ser feito de formas SQL diferentes de um SGBD pra outro.
 <br />Assim como em linguagens de programação “comuns”, existem palavras reservadas, as quais não podem ser usadas como identificadores.
