@@ -92,6 +92,28 @@ SELECT 5 + 2 AS resultado;
 -----------
          7
  </pre>
+  
+ 
+ 6)  **Concatenação e conversão para data:**
+```sql
+SELECT 'Hoje é ' || now()::date AS "Concatenação e cast para date";
+```
+<pre>
+ Concatenação e cast para date 
+-------------------------------
+ Hoje é 2017-07-05
+ </pre>
+   
+ 
+ 7)  **Concatenação e conversão para hora:**
+```sql
+SELECT 'Agora são ' || now()::time(0) AS "Concatenação e cast para time";
+```
+<pre>
+ Concatenação e cast para time 
+-------------------------------
+ Agora são 14:16:21
+ </pre>
  ---
 **Tipos de Dados**<a id="types"></a><p />
 ---
