@@ -6,9 +6,9 @@
 
 
 
-
+ * [**Preparação do Ambiente**](#preparacao)
  * [**Sobre o PostgreSQL**](#pg)
-  * [**SQL**](#sql)
+ * [**SQL**](#sql)
  * [**Tipos de Dados**](#types)
  * [**DDL**](#ddl)
  * [**DML**](#dml)
@@ -23,8 +23,8 @@
 
  
 
- 
- **Sobre o PostgreSQL**<a id="pg"></a><p />
+**Preparação do Ambiente**<a id="preparacao"></a><p /> 
+**Sobre o PostgreSQL**<a id="pg"></a><p />
 **SQL**<a id="sql"></a><p />
 **Tipos de Dados**<a id="types"></a><p />
 **DDL**<a id="ddl"></a><p />
