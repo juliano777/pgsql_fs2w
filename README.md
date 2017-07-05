@@ -17,9 +17,9 @@
  * [**CREATE TYPE**](#c_type)
  * [**DOMAIN**](#domain)
  * [**Range Types**](#range)
+---
 
  
-***
 
 **Preparação do Ambiente**<a id="preparacao"></a><p /> 
 
