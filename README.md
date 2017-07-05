@@ -65,8 +65,28 @@ SELECT 'Um exemplo de string' AS "apelido com espaço";
 ----------------------
  Um exemplo de string
  </pre>
-
-
+ 
+ 
+ 4)  **Soma de dois números:**
+```sql
+SELECT 5 + 2;
+```
+<pre>
+ ?column? 
+----------
+        7
+ </pre>
+ 
+ 
+ 5)  **Soma de dois números e alias:**
+```sql
+SELECT 5 + 2 AS resultado;
+```
+<pre>
+ resultado 
+-----------
+         7
+ </pre>
 
 **Tipos de Dados**<a id="types"></a><p />
 **DDL**<a id="ddl"></a><p />
@@ -79,9 +99,3 @@ SELECT 'Um exemplo de string' AS "apelido com espaço";
 **CREATE TYPE**<a id="c_type"></a><p />
 **DOMAIN**<a id="domain"></a><p />
 **Range Types**<a id="range"></a><p />
-
-
-```sql
-SELECT 'teste';
-```
-
