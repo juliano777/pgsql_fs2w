@@ -15,7 +15,11 @@
  * [**Relacionamentos**](#relacionamentos)
  * [**Subqueries**](#subqueries)
  * [**CTE**](#cte)
+ * [**Junções**](#juncoes)
  * [**Indexação**](#index)
+ * [**CREATE TYPE**](#c_type)
+ * [**DOMAIN**](#domain)
+ * [**Range Types**](#range)
 
  
 
@@ -28,5 +32,9 @@
 **Relacionamentos**<a id="relacionamentos"></a><p />
  **Subqueries**<a id="subqueries"></a><p />
 **CTE**<a id="cte"></a><p />
- **Indexação**<a id="index"></a><p />
+**Junções**<a id="juncoes"></a><p />
+**Indexação**<a id="index"></a><p />
+**CREATE TYPE**<a id="c_type"></a><p />
+**DOMAIN**<a id="domain"></a><p />
+**Range Types**<a id="range"></a><p />
 
