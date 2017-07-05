@@ -31,6 +31,7 @@
 <br />Assim como em linguagens de programação “comuns”, existem palavras reservadas, as quais não podem ser usadas como identificadores.
 <br />Cada comando SQL é finalizado com ponto e vírgula (;).<p />
 
+1. **Um SELECT simples retornando uma string:**
 ```sql
 SELECT 'Um exemplo de string';
 ```
@@ -40,6 +41,7 @@ SELECT 'Um exemplo de string';
  Um exemplo de string
  </pre>
 
+1. **Um SELECT simples retornando uma string:**
 ```sql
  SELECT 'Um exemplo de string' AS apelido;
  ```
