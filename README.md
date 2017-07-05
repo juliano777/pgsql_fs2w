@@ -1,5 +1,5 @@
 <p align="center">
-![PostgreSQL logo](img/pg.png)
+<img src="img/pg.png" />
 </p>
 # Workshop PostgreSQL
 
