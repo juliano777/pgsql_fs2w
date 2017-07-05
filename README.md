@@ -1,3 +1,3 @@
-![PostgreSQL Logo](/img/pg.png)
+<center>![PostgreSQL Logo](/img/pg.png)</center>
 
 # Workshop PostgreSQL
