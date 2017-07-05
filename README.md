@@ -1,4 +1,4 @@
 <center>
     <img src="img/pg.png">
-# Workshop PostgreSQL
+    <h1> Workshop PostgreSQL</h1>
 </center>
