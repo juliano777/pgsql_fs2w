@@ -26,10 +26,10 @@
 **Preparação do Ambiente**<a id="preparacao"></a><p /> 
 **Sobre o PostgreSQL**<a id="pg"></a><p />
 **SQL**<a id="sql"></a><p />
-<p />Structured Query Language – Linguagem Estruturada de Consulta, é a linguagem usada nos SGBDs relacionais por padrão, no entanto cada um tem suas particularidades dentro da própria linguagem, tendo implementações diferentes.
-<p />O mesmo objetivo pode ser feito de formas SQL diferentes de um SGBD pra outro.
-<p />Assim como em linguagens de programação “comuns”, existem palavras reservadas, as quais não podem ser usadas como identificadores.
-<p />Cada comando SQL é finalizado com ponto e vírgula (;).
+Structured Query Language – Linguagem Estruturada de Consulta, é a linguagem usada nos SGBDs relacionais por padrão, no entanto cada um tem suas particularidades dentro da própria linguagem, tendo implementações diferentes.
+<br />O mesmo objetivo pode ser feito de formas SQL diferentes de um SGBD pra outro.
+<br />Assim como em linguagens de programação “comuns”, existem palavras reservadas, as quais não podem ser usadas como identificadores.
+<br />Cada comando SQL é finalizado com ponto e vírgula (;).
 
 
 **Tipos de Dados**<a id="types"></a><p />
