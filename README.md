@@ -1,7 +1,8 @@
 <p align="center">
 <img src="img/pg.png" />
+<h1>Workshop PostgreSQL</h1>
 </p>
-# Workshop PostgreSQL
+
 
 
 
