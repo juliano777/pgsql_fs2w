@@ -1,6 +1,7 @@
-<center>
+
+<div style="text-align: right">
     <img src="img/pg.png">
     <h1> Workshop PostgreSQL</h1>
-</center>
+</div>
 
 ipsi literis
