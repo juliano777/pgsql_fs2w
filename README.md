@@ -1,9 +1,5 @@
-<p align="center">
 <h1>Workshop</h1>
 <img src="img/pg.png" alt="PostgreSQL logo" />
-</p>
-
-
 
 
  * [**Preparação do Ambiente**](#preparacao)
