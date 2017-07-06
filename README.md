@@ -319,10 +319,32 @@ SELECT 10500::numeric(7, 2);
  10500.00
 </pre>
 
-
-
 ---
 **DDL**<a id="ddl"></a><p />
+
+*Data Definition Language* é uma subdivisão de SQL que trata da manipulação de objetos do banco de dados.<br />
+Seus principais comandos são:<p />
+
+* CREATE (criação);
+* DROP (remoção);
+* ALTER (alteração).<p />
+
+
+Alguns tipos de objetos de bancos de dados: DATABASE, SCHEMA, TABLE, VIEW, SEQUENCE, TRIGGER, etc...<br />br />
+
+24)  **Criação de uma nova base de dados:**
+```sql
+CREATE DATABASE db_workshop;
+```
+
+ 
+ 
+25)  **Usar o meta-comando \c do cliente psql para se conectar à nova base de dados:**
+```sql
+\c db_workshop
+```
+
+
 ---
 **DML**<a id="dml"></a><p />
 ---
