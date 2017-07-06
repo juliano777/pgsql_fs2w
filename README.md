@@ -520,6 +520,26 @@ SELECT schema || '.' || tabela AS "Tabela com namespace" FROM vw_tabelas;
 </pre>
 
  
+ 
+40)  **Apagando as tabelas criadas:**
+```sql
+DROP TABLE public.tb_prod, public.tb_foo, sc_teste.tb_foo;
+```
+
+ 
+ 
+41)  **Apagando a view criada:**
+```sql
+DROP VIEW vw_tabelas;
+```
+
+ 
+ 
+42)  **Apagando o schema criado:**
+```sql
+DROP SCHEMA sc_teste;
+```
+ 
  ---
 **DML**<a id="dml"></a><p />
 
@@ -534,6 +554,458 @@ Fazendo uma analogia, em linguagens de programação temos o conceito de **CRUD*
 | *Delete* (apagar)      | DELETE |
 
 
+43) **Criação de tabela de teste:**
+```sql
+CREATE TABLE tb_teste(
+    id serial PRIMARY KEY,
+    campo1 varchar(10),
+    campo2 int);
+```
+
+
+
+44) **Verificando a estrutura da tabela:**
+```sql
+\d tb_teste
+```
+<pre>
+                                Table "public.tb_teste"
+ Column |         Type          |                       Modifiers                       
+--------+-----------------------+-------------------------------------------------------
+ id     | integer               | not null default nextval('tb_teste_id_seq'::regclass)
+ campo1 | character varying(10) | 
+ campo2 | integer               | 
+Indexes:
+    "tb_teste_pkey" PRIMARY KEY, btree (id)
+</pre>
+
+
+45) **Inserir um registro:**
+```sql
+INSERT INTO tb_teste (campo1, campo2) VALUES ('foo', 25);
+```
+
+
+
+46) **Veriricar o valor atual da sequence:**
+```sql
+SELECT currval('tb_teste_id_seq');
+```
+<pre>
+ currval 
+---------
+       1
+</pre>
+
+
+
+47) **Inserir valores:**
+```sql
+INSERT INTO tb_teste VALUES (2, 'bar', (random() * 100)::int);
+```
+
+
+
+48) **Veriricar o valor atual da sequence:**
+```sql
+SELECT currval('tb_teste_id_seq');
+```
+<pre>
+ currval 
+---------
+       1
+</pre>
+
+
+
+49) **INSERT múltiplo:**
+```sql
+INSERT INTO tb_teste (campo1, campo2) VALUES
+    ('spam', 58),
+    ('eggs', 87),
+    ('foobar', 92),
+    ('spameggs', 43),
+    ('eggsspam', 99);
+```
+<pre>
+ERROR:  duplicate key value violates unique constraint "tb_teste_pkey"
+DETAIL:  Key (id)=(2) already exists.
+</pre>
+
+
+
+50) **Veriricar o valor atual da sequence:**
+```sql
+SELECT currval('tb_teste_id_seq');
+```
+<pre>
+ currval 
+---------
+       2
+</pre>
+
+
+
+51) **INSERT múltiplo:**
+```sql
+INSERT INTO tb_teste (campo1, campo2) VALUES
+    ('spam', 58),
+    ('eggs', 87),
+    ('foobar', 92),
+    ('spameggs', 43),
+    ('eggsspam', 99);
+```
+
+
+
+52) **INSERT com SELECT:**
+```sql
+INSERT INTO tb_teste (campo1, campo2)
+    SELECT 'string', 77;
+```
+
+
+
+53) **Comando TABLE para selecionar todos os registros e todas as colunas:**
+```sql
+TABLE tb_teste;
+```
+<pre>
+ id |  campo1  | campo2 
+----+----------+--------
+  1 | foo      |     25
+  2 | bar      |     12
+  3 | spam     |     58
+  4 | eggs     |     87
+  5 | foobar   |     92
+  6 | spameggs |     43
+  7 | eggsspam |     99
+  8 | string   |     77
+</pre>
+
+
+
+54) **Selecionar todos os registros e todas as colunas:**
+```sql
+SELECT * FROM tb_teste;
+```
+<pre>
+ id |  campo1  | campo2 
+----+----------+--------
+  1 | foo      |     25
+  2 | bar      |     12
+  3 | spam     |     58
+  4 | eggs     |     87
+  5 | foobar   |     92
+  6 | spameggs |     43
+  7 | eggsspam |     99
+  8 | string   |     77
+</pre>
+
+
+
+55) **Explicitar campos e filtrar por valores de id maior ou igual a 5:**
+```sql
+SELECT id, campo2, campo1 FROM tb_teste WHERE id >= 5;
+```
+<pre>
+ id | campo2 |  campo1  
+----+--------+----------
+  5 |     92 | foobar
+  6 |     43 | spameggs
+  7 |     99 | eggsspam
+  8 |     77 | string
+</pre>
+
+
+
+56) **Iniciar uma transação:**
+```sql
+BEGIN;
+```
+
+
+
+57) **UPDATE sem WHERE:**
+```sql
+UPDATE tb_teste SET campo2 = 100;
+```
+
+
+
+58) **Comando TABLE:**
+```sql
+TABLE tb_teste;
+```
+<pre>
+ id |  campo1  | campo2 
+----+----------+--------
+  1 | foo      |    100
+  2 | bar      |    100
+  3 | spam     |    100
+  4 | eggs     |    100
+  5 | foobar   |    100
+  6 | spameggs |    100
+  7 | eggsspam |    100
+  8 | string   |    100
+</pre>
+
+
+
+59) **ROLLBACK na transação:**
+```sql
+ROLLBACK;
+```
+
+
+
+60) **Comando TABLE:**
+```sql
+TABLE tb_teste;
+```
+<pre>
+ id |  campo1  | campo2 
+----+----------+--------
+  1 | foo      |     25
+  2 | bar      |     12
+  3 | spam     |     58
+  4 | eggs     |     87
+  5 | foobar   |     92
+  6 | spameggs |     43
+  7 | eggsspam |     99
+  8 | string   |     77
+</pre>
+
+
+
+61) **UPDATE com WHERE:**
+```sql
+UPDATE tb_teste SET campo2 = 100 WHERE id = 2;
+```
+
+
+
+62) **:**
+```sql
+UPDATE tb_teste SET (campo1, campo2) = (NULL, 404)
+    WHERE id BETWEEN 5 AND 9
+    RETURNING campo1, campo2;
+```
+<pre>
+ campo1 | campo2 
+--------+--------
+        |    404
+        |    404
+        |    404
+        |    404
+</pre>
+
+
+
+63) **Apagar todos registros onde o campo1 for NULL:**
+```sql
+DELETE FROM tb_teste WHERE campo1 IS NULL;
+```
+
+
+
+64) **DELETE com RETURNING:**
+```sql
+DELETE FROM tb_teste WHERE id = 4 RETURNING campo1, campo2;
+```
+<pre>
+ campo1 | campo2 
+--------+--------
+ eggs   |     87
+</pre>
+
+
+
+65) **Apagar a tabela de teste:**
+```sql
+DROP TABLE tb_teste;
+```
+
+
+
+66) **Criar a tabela de teste baseada em uma consulta:**
+```sql
+CREATE TABLE tb_teste AS SELECT generate_series(1, 2000000);
+```
+
+
+67) **Habilitar o cronômetro do psql:**
+```sql
+\timing
+```
+
+
+
+68) **DELETE sem WHERE:**
+```sql
+DELETE FROM tb_teste;
+```
+<pre>
+Time: 8252,219 ms
+</pre>
+
+
+
+69) **Apagar a tabela de teste:**
+```sql
+DROP TABLE tb_teste;
+```
+
+
+
+70) **Criar a tabela de teste baseada em uma consulta:**
+```sql
+CREATE TABLE tb_teste AS SELECT generate_series(1, 2000000);
+```
+
+
+
+71) **TRUNCATE na tabela:**
+```sql
+TRUNCATE tb_teste;
+```
+<pre>
+Time: 37,142 ms
+</pre>
+
+
+
+72) **Inserir valores através da função generate_series:**
+```sql
+INSERT INTO tb_teste SELECT generate_series(1, 20);
+```
+
+
+
+73) **Veriricar a tabela:**
+```sql
+TABLE tb_teste;
+```
+<pre>
+ generate_series 
+-----------------
+               1
+               2
+               3
+               4
+               5
+               6
+               7
+               8
+               9
+              10
+              11
+              12
+              13
+              14
+              15
+              16
+              17
+              18
+              19
+              20
+</pre>
+
+
+
+74) **Limitar a 5 registros a serem exibidos:**
+```sql
+SELECT * FROM tb_teste LIMIT 5;
+```
+<pre>
+ generate_series 
+-----------------
+               1
+               2
+               3
+               4
+               5
+</pre>
+
+
+
+75) **Limitar a 5 registros a serem exibidos em ordem decrescente:**
+```sql
+SELECT generate_series FROM tb_teste ORDER BY generate_series DESC LIMIT 5;
+```
+<pre>
+ generate_series 
+-----------------
+              20
+              19
+              18
+              17
+              16
+</pre>
+
+
+
+76) **Não exibir 15 registros:**
+```sql
+SELECT generate_series FROM tb_teste OFFSET 15;
+```
+<pre>
+ generate_series 
+-----------------
+              16
+              17
+              18
+              19
+              20
+</pre>
+
+
+
+77) **Paginação de 5 em 5:**
+```sql
+SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 0;
+```
+<pre>
+ generate_series 
+-----------------
+               1
+               2
+               3
+               4
+               5
+</pre>
+
+
+
+78) **Paginação de 5 em 5:**
+```sql
+SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 5;
+```
+<pre>
+ generate_series 
+-----------------
+               6
+               7
+               8
+               9
+              10
+</pre>
+
+
+
+79) **Paginação de 5 em 5:**
+```sql
+SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 10;
+```
+<pre>
+ generate_series 
+-----------------
+              11
+              12
+              13
+              14
+              15
+</pre>
 
 
 
