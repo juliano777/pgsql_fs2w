@@ -381,7 +381,7 @@ CREATE TABLE tb_produto(
 
  
  
-28)  **Criação de uma nova:**
+29)  **Verificar a estrutura da tabela:**
 ```sql
 \d tb_produto
 ```
@@ -396,7 +396,14 @@ CREATE TABLE tb_produto(
 Indexes:
     "tb_produto_pkey" PRIMARY KEY, btree (id)
 </pre>
+```
 
+ 
+ 
+30)  **Alterar a tabela adicionando um novo campo:**
+```sql
+ALTER TABLE tb_produto ADD COLUMN campo_inteiro INT;
+```
 
 
 
