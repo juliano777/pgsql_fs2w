@@ -114,6 +114,8 @@ SELECT 'Agora são ' || now()::time(0) AS "Concatenação e cast para time";
  </pre>
  ---
 **Tipos de Dados**<a id="types"></a><p />
+
+[Tipos de dados do PostgreSQL](https://www.postgresql.org/docs/current/static/datatype.html)
 ---
 **DDL**<a id="ddl"></a><p />
 ---
