@@ -330,7 +330,7 @@ Seus principais comandos são:<p />
 * ALTER (alteração).<p />
 
 
-Alguns tipos de objetos de bancos de dados: DATABASE, SCHEMA, TABLE, VIEW, SEQUENCE, TRIGGER, etc...<br />br />
+Alguns tipos de objetos de bancos de dados: DATABASE, SCHEMA, TABLE, VIEW, SEQUENCE, TRIGGER, etc...<br /><br />
 
 24)  **Criação de uma nova base de dados:**
 ```sql
@@ -344,6 +344,29 @@ CREATE DATABASE db_workshop;
 \c db_workshop
 ```
 
+ 
+ 
+26)  **Função que retorna a base de dados atual:**
+```sql
+SELECT current_database();
+```
+<pre>
+ current_database 
+------------------
+ db_workshop
+</pre>
+
+ 
+ 
+27)  **Função que retorna o usuário atual:**
+```sql
+SELECT current_user;
+```
+<pre>
+ current_user 
+--------------
+ postgres
+</pre>
 
 ---
 **DML**<a id="dml"></a><p />
