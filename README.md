@@ -17,6 +17,7 @@
  * [**CREATE TYPE**](#c_type)
  * [**DOMAIN**](#domain)
  * [**Range Types**](#range)
+ * [**Acessando o Postgres via Python (psycopg2)**](#python)
 ---
 
  
@@ -134,6 +135,8 @@ Cada atributo de uma entidade tem um tipo mais adequado.
 * [Arrays](https://www.postgresql.org/docs/current/static/arrays.html)
 * [Tipos Compostos](https://www.postgresql.org/docs/current/static/rowtypes.html)
 * [Tipos de Faixa (Range Types)](https://www.postgresql.org/docs/current/static/rangetypes.html)
+
+Além dos tipos de dados variados é interessante conhecer também [máscaras de dados](https://www.postgresql.org/docs/current/static/functions-formatting.html).
 
 <br /><br />
 
@@ -301,4 +304,6 @@ SELECT pg_column_size('fe80::f67e:5b4f:d208:713a/64'::inet);
 **DOMAIN**<a id="domain"></a><p />
 ---
 **Range Types**<a id="range"></a><p />
+---
+**Acessando o Postgres via Python (psycopg2)**<a id="python"></a><p />
 ---
