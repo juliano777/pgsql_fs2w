@@ -396,7 +396,7 @@ CREATE TABLE tb_produto(
 Indexes:
     "tb_produto_pkey" PRIMARY KEY, btree (id)
 </pre>
-```
+
 
  
  
