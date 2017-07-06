@@ -368,6 +368,39 @@ SELECT current_user;
  postgres
 </pre>
 
+ 
+ 
+28)  **Criação de uma nova:**
+```sql
+CREATE TABLE tb_produto(
+    id serial PRIMARY KEY,
+    nome varchar(50) NOT NULL,
+    preco numeric(7, 2) NOT NULL,
+    descricao text);
+```
+
+ 
+ 
+28)  **Criação de uma nova:**
+```sql
+\d tb_produto
+```
+<pre>
+                                  Table "public.tb_produto"
+  Column   |         Type          |                        Modifiers                        
+-----------+-----------------------+---------------------------------------------------------
+ id        | integer               | not null default nextval('tb_produto_id_seq'::regclass)
+ nome      | character varying(50) | not null
+ preco     | numeric(7,2)          | not null
+ descricao | text                  | 
+Indexes:
+    "tb_produto_pkey" PRIMARY KEY, btree (id)
+</pre>
+
+
+
+
+
 ---
 **DML**<a id="dml"></a><p />
 ---
