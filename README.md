@@ -522,6 +522,21 @@ SELECT schema || '.' || tabela AS "Tabela com namespace" FROM vw_tabelas;
  
  ---
 **DML**<a id="dml"></a><p />
+
+*Data Manipulation Language* é a parte da linguagem SQL que trata da manipulação de registros.<br />
+Fazendo uma analogia, em linguagens de programação temos o conceito de **CRUD**:<p />
+
+| CRUD | SQL |
+| --- | --- |
+| *Create* (criar)          | INSERT  |
+| *Retrieve* (buscar)    | SELECT |
+| *Update* (modificar) | UPDATE |
+| *Delete* (apagar)      | DELETE |
+
+
+
+
+
 ---
 **Relacionamentos**<a id="relacionamentos"></a><p />
 ---
