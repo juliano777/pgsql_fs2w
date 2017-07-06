@@ -307,6 +307,18 @@ SELECT to_char(2017, 'RN');
           MMXVII
 </pre>
 
+ 
+ 
+23)  **Número com 7 dígitos, 2 são para casas decimais:**
+```sql
+SELECT 10500::numeric(7, 2);
+```
+<pre>
+ numeric  
+----------
+ 10500.00
+</pre>
+
 
 
 ---
