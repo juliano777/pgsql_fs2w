@@ -135,7 +135,7 @@ Cada atributo de uma entidade tem um tipo mais adequado.
 * [Tipos Compostos](https://www.postgresql.org/docs/current/static/rowtypes.html)
 * [Tipos de Faixa (Range Types)](https://www.postgresql.org/docs/current/static/rangetypes.html)
 
-<p /><p />
+<br /><br />
 
 8) **Tipo inteiro padrão (int4; 4 bytes):**
 ```sql
