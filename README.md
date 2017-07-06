@@ -406,6 +406,53 @@ ALTER TABLE tb_produto ADD COLUMN campo_inteiro INT;
 ```
 
 
+ 
+ 
+31)  **Alterar o nome da tabela:**
+```sql
+ALTER TABLE tb_produto RENAME TO tb_prod;
+```
+
+ 
+ 
+32)  **Verificar a estrutura da tabela:**
+```sql
+\d tb_prod
+```
+<pre>
+                                     Table "public.tb_prod"
+    Column     |         Type          |                        Modifiers                        
+---------------+-----------------------+---------------------------------------------------------
+ id            | integer               | not null default nextval('tb_produto_id_seq'::regclass)
+ nome          | character varying(50) | not null
+ preco         | numeric(7,2)          | not null
+ descricao     | text                  | 
+ campo_inteiro | integer               | 
+Indexes:
+    "tb_produto_pkey" PRIMARY KEY, btree (id)
+</pre>
+
+ 
+ 
+33)  **Criação de uma nova:**
+```sql
+CREATE TABLE tb_foo (campo INT);
+```
+
+ 
+ 
+34)  **Verificar a estrutura da tabela:**
+```sql
+SELECT tablename AS tabelas
+    FROM pg_tables
+    WHERE schemaname NOT IN ('information_schema', 'pg_catalog');
+```
+<pre>
+ tabelas 
+---------
+ tb_prod
+ tb_foo
+</pre>
 
 
 ---
