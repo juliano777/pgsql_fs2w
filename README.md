@@ -238,22 +238,48 @@ SELECT '00:01:07:f4:cb:55'::macaddr;
  
 17) **Endereço CIDR:**
 ```sql
-
+SELECT '192.168/25'::cidr;
 ```
 <pre>
-
+      cidr      
+----------------
+ 192.168.0.0/25
 </pre>
  
  
-14)  **:**
+18)  **Validação IPv4:**
 ```sql
-SELECT '192.168.0.0/8'::inet;
+SELECT 'fe80::f67e:5b4f:d208:713a/64'::inet;
 ```
 <pre>
-     inet      
----------------
- 192.168.0.0/8
+             inet             
+------------------------------
+ fe80::f67e:5b4f:d208:713a/64
 </pre>
+ 
+ 
+19)  **Tamanho de um endereço de rede como texto:**
+```sql
+SELECT pg_column_size('fe80::f67e:5b4f:d208:713a/64'::text);
+```
+<pre>
+ pg_column_size 
+----------------
+             32
+</pre>
+
+ 
+ 
+20)  **Tamanho de um endereço de rede como inet:**
+```sql
+SELECT pg_column_size('fe80::f67e:5b4f:d208:713a/64'::inet);
+```
+<pre>
+ pg_column_size 
+----------------
+             22
+</pre>
+
 
 ---
 **DDL**<a id="ddl"></a><p />
