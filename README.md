@@ -283,6 +283,31 @@ SELECT pg_column_size('fe80::f67e:5b4f:d208:713a/64'::inet);
              22
 </pre>
 
+ 
+ 
+21)  **Máscara para CPF:**
+```sql
+SELECT to_char(39684721495, '999"."999"."999-99') AS cpf;
+```
+<pre>
+       cpf       
+-----------------
+  396.847.214-95
+</pre>
+
+ 
+ 
+22)  **Converter para algarismos romanos:**
+```sql
+SELECT to_char(2017, 'RN');
+```
+<pre>
+     to_char     
+-----------------
+          MMXVII
+</pre>
+
+
 
 ---
 **DDL**<a id="ddl"></a><p />
