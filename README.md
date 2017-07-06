@@ -434,28 +434,93 @@ Indexes:
 
  
  
-33)  **Criação de uma nova:**
+33)  **Criação de uma nova tabela:**
 ```sql
 CREATE TABLE tb_foo (campo INT);
 ```
 
  
- 
-34)  **Verificar a estrutura da tabela:**
+
+34)  **Criação de um novo schema:**
 ```sql
-SELECT tablename AS tabelas
-    FROM pg_tables
-    WHERE schemaname NOT IN ('information_schema', 'pg_catalog');
+CREATE SCHEMA sc_teste;
+```
+ 
+ 
+ 
+ 35)  **Listando os schemas:**
+```sql
+SELECT nspname AS schema FROM pg_namespace;
 ```
 <pre>
- tabelas 
----------
- tb_prod
- tb_foo
+       schema       
+--------------------
+ pg_toast
+ pg_temp_1
+ pg_toast_temp_1
+ pg_catalog
+ public
+ information_schema
+ sc_teste
 </pre>
 
 
----
+
+36)  **Criação de uma nova tabela:**
+```sql
+CREATE TABLE tb_foo (campo INT);
+```
+
+
+
+37)  **Criação de uma nova tabela no novo schema:**
+```sql
+CREATE TABLE sc_teste.tb_foo(
+    campo1 INT,
+    campo2 INT);
+```
+
+
+38)  **Pelo catálogo do sistema verificar as tabelas criadas pelo usuário:**
+```sql
+SELECT tablename AS tabela, schemaname AS schema
+    FROM pg_tables
+    WHERE schemaname !~ 'information_schema|pg_.*';
+```
+<pre>
+ tabela  |  schema  
+---------+----------
+ tb_prod | public
+ tb_foo  | public
+ tb_foo  | sc_teste
+</pre>
+
+ 
+ 
+39)  **Criação de uma view baseada na consulta anterior:**
+```sql
+CREATE VIEW vw_tabelas AS
+    SELECT tablename AS tabela, schemaname AS schema
+    FROM pg_tables
+    WHERE schemaname !~ 'information_schema|pg_.*';
+```
+
+ 
+ 
+40)  **Consulta na view criada:**
+```sql
+SELECT schema || '.' || tabela AS "Tabela com namespace" FROM vw_tabelas;
+```
+<pre>
+ Tabela com namespace 
+----------------------
+ public.tb_prod
+ public.tb_foo
+ sc_teste.tb_foo
+</pre>
+
+ 
+ ---
 **DML**<a id="dml"></a><p />
 ---
 **Relacionamentos**<a id="relacionamentos"></a><p />
