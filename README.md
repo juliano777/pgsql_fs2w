@@ -1010,9 +1010,228 @@ SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 10;
 
 
 ---
+
 **Chave Estrangeira**<a id="fk"></a><p />
 
-![Chave Estrangeira](img/pk.png)
+Especifica que o valor da coluna deve corresponder a um valor que esteja na
+coluna da tabela referenciada. 
+Os valores dos campos referenciados devem ser únicos. Chamamos isso de
+integridade referencial.<br />
+
+80) **Criação da Tabela tb_uf:**
+```sql
+CREATE TEMP TABLE tb_uf(
+    id char(2) PRIMARY KEY,
+    nome VARCHAR(30));
+```
+
+
+
+
+81) **Criação da Tabela tb_cidade:**
+```sql
+CREATE TEMP TABLE tb_cidade(
+    id serial PRIMARY KEY,
+    nome VARCHAR(40),
+    uf char(2) REFERENCES tb_uf (id));
+```
+
+
+
+
+82) **Tentativa de exclusão da tabela referenciada:**
+```sql
+DROP TABLE tb_uf;
+```
+<pre>
+ERROR:  cannot drop table tb_uf because other objects depend on it
+DETAIL:  constraint tb_cidade_uf_fkey on table tb_cidade depends on table tb_uf
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+</pre>
+
+
+
+
+83) **Descrição da estratura de tb_uf:**
+```sql
+\d tb_uf
+```
+<pre>
+          Table "pg_temp_2.tb_uf"
+ Column |         Type          | Modifiers 
+--------+-----------------------+-----------
+ id     | character(2)          | not null
+ nome   | character varying(30) | 
+Indexes:
+    "tb_uf_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+    TABLE "tb_cidade" CONSTRAINT "tb_cidade_uf_fkey" FOREIGN KEY (uf) REFERENCES tb_uf(id)
+</pre>
+
+
+
+
+
+
+83) **Descrição da estratura de tb_cidade:**
+```sql
+\d tb_cidade
+```
+<pre>
+                               Table "pg_temp_4.tb_cidade"
+ Column |         Type          |                       Modifiers                        
+--------+-----------------------+--------------------------------------------------------
+ id     | integer               | not null default nextval('tb_cidade_id_seq'::regclass)
+ nome   | character varying(40) | 
+ uf     | character(2)          | 
+Indexes:
+    "tb_cidade_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "tb_cidade_uf_fkey" FOREIGN KEY (uf) REFERENCES tb_uf(id)
+</pre>
+
+
+
+
+84) **Comando COPY para popular a tabela:**
+```sql
+COPY tb_uf (id, nome) FROM STDIN DELIMITER ',';
+```
+<pre>
+Enter data to be copied followed by a newline.
+End with a backslash and a period on a line by itself.
+>>
+</pre>
+
+
+Em seguida os registros:
+
+<pre>
+MG,MINAS GERAIS
+SP,SÃO PAULO
+RR,RORAIMA
+AC,ACRE
+AL,ALAGOAS
+AP,AMAPÁ
+AM,AMAZONAS
+BA,BAHIA
+CE,CEARÁ
+DF,DISTRITO FEDERAL
+ES,ESPÍRITO SANTO
+GO,GOIÁS
+MA,MARANHÃO
+MT,MATO GROSSO
+MS,MATO GROSSO DO SUL
+PA,PARÁ
+PR,PARANÁ
+PE,PERNAMBUCO
+PI,PIAUÍ
+RJ,RIO DE JANEIRO
+RN,RIO GRANDE DO NORTE
+RS,RIO GRANDE DO SUL
+RO,RONDÔNIA
+SC,SANTA CATARINA
+SE,SERGIPE
+TO,TOCANTINS
+PB,PARAIBA
+</pre>
+
+Dê <ENTER> e logo em seguida <Ctrl> + <D>.
+
+
+85) **Inserir valores para a tabela tb_cidade:**
+```sql
+INSERT INTO tb_cidade (nome, uf) VALUES
+    ('São Paulo', 'SP'),
+    ('Belo Horizonte', 'MG'),
+    ('Vitória', 'ES'),
+    ('Rio de Janeiro', 'RJ');
+```
+
+
+
+86) **Tentativa de inserir valores cuja chave estrangeira não existe na tabela referenciada:**
+```sql
+INSERT INTO tb_cidade (nome, uf) VALUES
+    ('foo', 'NN'),
+    ('bar', 'NN');
+```
+<pre>
+ERROR:  insert or update on table "tb_cidade" violates foreign key constraint "tb_cidade_uf_fkey"
+DETAIL:  Key (uf)=(NN) is not present in table "tb_uf".
+</pre>
+
+
+
+87) **Inserir um registro novo em tb_uf para possibilitar o INSERT anterior:**
+```sql
+INSERT INTO tb_uf (id, nome) VALUES ('NN', '...');
+```
+
+
+
+88) **Inserir valores novos em tb_cidade:**
+```sql
+INSERT INTO tb_cidade (nome, uf) VALUES
+    ('foo', 'NN'),
+    ('bar', 'NN');
+```
+<pre>
+
+
+
+
+89) **Tentativa de apagar o registro da tabela referenciada:**
+```sql
+DELETE FROM tb_uf WHERE id = 'NN';
+```
+<pre>
+ERROR:  update or delete on table "tb_uf" violates foreign key constraint "tb_cidade_uf_fkey" on table "tb_cidade"
+DETAIL:  Key (id)=(NN) is still referenced from table "tb_cidade".
+</pre>
+
+
+
+90) **Apagando os registros da tabela referenciadora:**
+```sql
+DELETE FROM tb_cidade WHERE uf = 'NN';;
+```
+
+
+
+91) **Tentativa de apagar o registro da tabela referenciada:**
+```sql
+DELETE FROM tb_uf WHERE id = 'NN';
+```
+
+
+
+92) **Apagando a tabela referenciada em modo cascata:**
+```sql
+DROP TABLE tb_uf CASCADE;
+```
+<pre>
+NOTICE:  drop cascades to constraint tb_cidade_uf_fkey on table tb_cidade
+</pre>
+
+
+
+92) **Verificando a estrutura da tabela tb_cidade:**
+```sql
+\d tb_cidade
+```
+<pre>
+                               Table "pg_temp_4.tb_cidade"
+ Column |         Type          |                       Modifiers                        
+--------+-----------------------+--------------------------------------------------------
+ id     | integer               | not null default nextval('tb_cidade_id_seq'::regclass)
+ nome   | character varying(40) | 
+ uf     | character(2)          | 
+Indexes:
+    "tb_cidade_pkey" PRIMARY KEY, btree (id)
+</pre>
+
+
 ---
  **Subqueries**<a id="subqueries"></a><p />
  ---
