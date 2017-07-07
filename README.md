@@ -22,13 +22,16 @@
 
  
 
-**Preparação do Ambiente**<a id="preparacao"></a><p /> 
+<a id="preparacao"></a>
+## Preparação do Ambiente
 
 ---
-**Sobre o PostgreSQL**<a id="pg"></a><p />
+<a id="pg"></a><p />
+## Sobre o PostgreSQL
 
 ---
-**SQL**<a id="sql"></a><p />
+<a id="sql"></a><p />
+## SQL
 
 **Structured Query Language** – **Linguagem Estruturada de Consulta**, é a linguagem usada nos SGBDs relacionais por padrão, no entanto cada um tem suas particularidades dentro da própria linguagem, tendo implementações diferentes.
 <br />O mesmo objetivo pode ser feito de formas SQL diferentes de um SGBD pra outro.
@@ -114,7 +117,8 @@ SELECT 'Agora são ' || now()::time(0) AS "Concatenação e cast para time";
  Agora são 14:16:21
  </pre>
  ---
-**Tipos de Dados**<a id="types"></a><p />
+<a id="types"></a>
+## Tipos de Dados
 
 O PostgreSQL tem vários [tipos de dados](https://www.postgresql.org/docs/current/static/datatype.html).<br />
 Cada atributo de uma entidade tem um tipo mais adequado.
@@ -320,7 +324,8 @@ SELECT 10500::numeric(7, 2);
 </pre>
 
 ---
-**DDL**<a id="ddl"></a><p />
+<a id="ddl"></a>
+## DDL
 
 *Data Definition Language* é uma subdivisão de SQL que trata da manipulação de objetos do banco de dados.<br />
 Seus principais comandos são:<p />
@@ -541,7 +546,8 @@ DROP SCHEMA sc_teste;
 ```
  
  ---
-**DML**<a id="dml"></a><p />
+<a id="dml"></a>
+## DML
 
 *Data Manipulation Language* é a parte da linguagem SQL que trata da manipulação de registros.<br />
 Fazendo uma analogia, em linguagens de programação temos o conceito de **CRUD**:<p />
@@ -1011,7 +1017,8 @@ SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 10;
 
 ---
 
-**Chave Estrangeira**<a id="fk"></a><p />
+<a id="fk"></a>
+## Chave Estrangeira
 
 Especifica que o valor da coluna deve corresponder a um valor que esteja na
 coluna da tabela referenciada. 
@@ -1231,19 +1238,27 @@ Indexes:
 
 
 ---
- **Subqueries**<a id="subqueries"></a><p />
+<a id="subqueries"></a>
+## Subqueries
  ---
-**CTE**<a id="cte"></a><p />
+<a id="cte"></a>
+## CTE
 ---
-**Junções**<a id="juncoes"></a><p />
+<a id="juncoes"></a>
+## Junções
 ---
-**Indexação**<a id="index"></a><p />
+<a id="index"></a>
+## Indexação
 ---
-**CREATE TYPE**<a id="c_type"></a><p />
+<a id="c_type"></a>
+## CREATE TYPE
 ---
-**DOMAIN**<a id="domain"></a><p />
+<a id="domain"></a>
+## DOMAIN
 ---
-**Range Types**<a id="range"></a><p />
+<a id="range"></a>
+## Range Types
 ---
-**Acessando o Postgres via Python (psycopg2)**<a id="python"></a><p />
+<a id="python"></a>
+## Acessando o Postgres via Python (psycopg2)
 ---
