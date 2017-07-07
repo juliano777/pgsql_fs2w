@@ -9,7 +9,7 @@
  * [**Tipos de Dados**](#types)
  * [**DDL**](#ddl)
  * [**DML**](#dml)
- * [**Relacionamentos**](#relacionamentos)
+ * [**Chave Estrangeira**](#fk)
  * [**Subqueries**](#subqueries)
  * [**CTE**](#cte)
  * [**Junções**](#juncoes)
@@ -1010,7 +1010,9 @@ SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 10;
 
 
 ---
-**Relacionamentos**<a id="relacionamentos"></a><p />
+**Chave Estrangeira**<a id="fk"></a><p />
+
+![Chave Estrangeira](img/pk.png)
 ---
  **Subqueries**<a id="subqueries"></a><p />
  ---
