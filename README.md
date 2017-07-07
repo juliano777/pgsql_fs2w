@@ -39,7 +39,7 @@
 
 
 
-1.  **Um SELECT simples retornando uma string:**
+1)  **Um SELECT simples retornando uma string:**
 ```sql
 SELECT 'Um exemplo de string';
 ```
@@ -50,7 +50,7 @@ SELECT 'Um exemplo de string';
  </pre>
 
 
-1.  **Um SELECT simples com alias retornando uma string:**
+2)  **Um SELECT simples com alias retornando uma string:**
 ```sql
 SELECT 'Um exemplo de string' AS apelido;
 ```
@@ -61,7 +61,7 @@ SELECT 'Um exemplo de string' AS apelido;
  </pre>
  
  
-1.  **Um SELECT simples com alias contendo espaços retornando uma string:**
+ 3)  **Um SELECT simples com alias contendo espaços retornando uma string:**
 ```sql
 SELECT 'Um exemplo de string' AS "apelido com espaço";
 ```
@@ -72,7 +72,7 @@ SELECT 'Um exemplo de string' AS "apelido com espaço";
  </pre>
  
  
-1.  **Soma de dois números:**
+ 4)  **Soma de dois números:**
 ```sql
 SELECT 5 + 2;
 ```
@@ -83,7 +83,7 @@ SELECT 5 + 2;
  </pre>
  
  
-1.  **Soma de dois números e alias:**
+ 5)  **Soma de dois números e alias:**
 ```sql
 SELECT 5 + 2 AS resultado;
 ```
@@ -94,7 +94,7 @@ SELECT 5 + 2 AS resultado;
  </pre>
   
  
-1.  **Concatenação e conversão para data:**
+ 6)  **Concatenação e conversão para data:**
 ```sql
 SELECT 'Hoje é ' || now()::date AS "Concatenação e cast para date";
 ```
@@ -105,7 +105,7 @@ SELECT 'Hoje é ' || now()::date AS "Concatenação e cast para date";
  </pre>
    
  
-1.  **Concatenação e conversão para hora:**
+ 7)  **Concatenação e conversão para hora:**
 ```sql
 SELECT 'Agora são ' || now()::time(0) AS "Concatenação e cast para time";
 ```
@@ -142,7 +142,7 @@ Além dos tipos de dados variados é interessante conhecer também [máscaras de
 
 <br /><br />
 
-1. **Tipo inteiro padrão (int4; 4 bytes):**
+8) **Tipo inteiro padrão (int4; 4 bytes):**
 ```sql
 SELECT pg_typeof(7);
 ```
@@ -153,7 +153,7 @@ SELECT pg_typeof(7);
 </pre>
  
  
-1. **Tipo inteiro de 2 bytes:**
+9) **Tipo inteiro de 2 bytes:**
 ```sql
 SELECT pg_typeof(7::int2);
 ```
@@ -164,7 +164,7 @@ SELECT pg_typeof(7::int2);
 </pre>
  
  
-1. **Tipo inteiro de 8 bytes:**
+10) **Tipo inteiro de 8 bytes:**
 ```sql
 SELECT pg_typeof(7::int8);
 ```
@@ -175,7 +175,7 @@ SELECT pg_typeof(7::int8);
 </pre>
  
  
-1. **Tipo desconhecido de string:**
+11) **Tipo desconhecido de string:**
 ```sql
 SELECT pg_typeof('foo');
 ```
@@ -186,7 +186,7 @@ SELECT pg_typeof('foo');
 </pre>
  
  
-1. **Tipo de string VARCHAR:**
+12) **Tipo de string VARCHAR:**
 ```sql
 SELECT pg_typeof('foo'::varchar);
 ```
@@ -197,7 +197,7 @@ SELECT pg_typeof('foo'::varchar);
 </pre>
  
  
-1. **Tipo de string TEXT:**
+13) **Tipo de string TEXT:**
 ```sql
 SELECT pg_typeof('foo'::text);
 ```
@@ -208,7 +208,7 @@ SELECT pg_typeof('foo'::text);
 </pre>
  
  
-1. **Tipo para endereço IP:**
+14) **Tipo para endereço IP:**
 ```sql
 SELECT '192.168.0.1'::inet;
 ```
