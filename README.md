@@ -20,6 +20,10 @@
  * [**Acessando o Postgres via Python (psycopg2)**](#python)
 ---
 
+1. This is an ordered list
+1. The list contains three items
+1. This is the last one
+
  
 
 <a id="preparacao"></a>
