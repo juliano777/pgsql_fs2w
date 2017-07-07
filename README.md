@@ -1176,8 +1176,6 @@ INSERT INTO tb_cidade (nome, uf) VALUES
     ('foo', 'NN'),
     ('bar', 'NN');
 ```
-<pre>
-
 
 
 
