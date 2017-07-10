@@ -1661,6 +1661,14 @@ Verificando o plano de execução:
 EXPLAIN ANALYZE SELECT campo1
     FROM tb_index WHERE campo2 BETWEEN 235 AND 587;
 
+    QUERY PLAN                                                
+---------------------------------------------------------------------------------------------------------
+Seq Scan on tb_index  (cost=0.00..389.00 rows=688 width=2) (actual time=0.036..10.163 rows=679 loops=1)
+Filter: ((campo2 >= 235) AND (campo2 <= 587))
+Rows Removed by Filter: 19321
+Planning time: 0.189 ms
+Execution time: 10.245 ms    
+
 
 CREATE INDEX idx_tb_index_campo2 ON tb_index (campo2);
 
@@ -1668,6 +1676,16 @@ Verificando o plano de execução:
 
 EXPLAIN ANALYZE SELECT campo1
     FROM tb_index WHERE campo2 BETWEEN 235 AND 587;
+
+    QUERY PLAN                                                            
+---------------------------------------------------------------------------------------------------------------------------------
+Bitmap Heap Scan on tb_index  (cost=15.34..114.66 rows=688 width=2) (actual time=0.344..0.981 rows=679 loops=1)
+Recheck Cond: ((campo2 >= 235) AND (campo2 <= 587))
+Heap Blocks: exact=89
+->  Bitmap Index Scan on idx_tb_index_campo2  (cost=0.00..15.17 rows=688 width=0) (actual time=0.305..0.305 rows=679 loops=1)
+Index Cond: ((campo2 >= 235) AND (campo2 <= 587))
+Planning time: 0.363 ms
+Execution time: 1.073 ms
 
 Criação de índice composto:
 
@@ -1678,6 +1696,14 @@ Verificando o plano de consulta:
 EXPLAIN ANALYZE SELECT campo1
     FROM tb_index
     WHERE (campo2 BETWEEN 235 AND 587) AND campo3 = 1000;
+
+    QUERY PLAN                                                              
+--------------------------------------------------------------------------------------------------------------------------------------
+Index Scan using idx_tb_index_campo2_campo3 on tb_index  (cost=0.29..20.90 rows=1 width=2) (actual time=0.086..0.190 rows=1 loops=1)
+Index Cond: ((campo2 >= 235) AND (campo2 <= 587) AND (campo3 = 1000))
+Planning time: 0.414 ms
+Execution time: 0.227 ms
+
 
 
 Apagando a tabela do exercício anterior:
