@@ -1520,7 +1520,93 @@ as informações que satisfaçam a regra da junção. OUTER JOINs podem ser dos 
 Para os exercícios serão inseridos dados na tabela tb_pf, que não tenham
 correspondência na tabela tb_colaborador.
 
+109) **Inserir valores para os testes:**
+```sql
+INSERT INTO tb_pf VALUES
+    ('Elzinda', '1979-05-03', NULL, '10293847567', '2233551177', 'Ambrózio',
+     'f'),
+    ('Carmelita', '1915-01-01', NULL, '00000000011', '0000000011', 'Antunes',
+     'f'),
+    ('Sizorfino', '1978-11-26', NULL, '00000000111', '0000000111', 'Chagas',
+     'm');
+```
 
+### LEFT OUTER JOIN
+
+110) **Tabela tb_pf à esquerda:**
+```sql
+SELECT p.nome||' '||p.sobrenome "Nome Completo", c.id
+    FROM tb_pf p
+    LEFT OUTER JOIN tb_colaborador c
+        USING (cpf)
+    OFFSET 35;
+```
+<pre>
+Nome Completo    | id
+--------------------+----
+Estriga Souto      | 36
+Eltaminácio Santos | 37
+Maria dos Santos   | 38
+Etelvino Castro    | 39
+Carzózio da Silva  | 40
+Genovézio Gomes    |   
+Carmelita Antunes  |   
+Elzinda Ambrózio   |   
+Sizorfino Chagas   |
+</pre>
+
+### RIGHT OUTER JOIN
+
+111) **Tabela tb_pf à direita:**
+```sql
+SELECT p.nome||' '||p.sobrenome "Nome Completo", c.id
+    FROM tb_colaborador c
+    RIGHT OUTER JOIN tb_pf p USING (cpf)
+    OFFSET 35;
+```
+<pre>
+Nome Completo    | id
+--------------------+----
+Estriga Souto      | 36
+Eltaminácio Santos | 37
+Maria dos Santos   | 38
+Etelvino Castro    | 39
+Carzózio da Silva  | 40
+Genovézio Gomes    |   
+Carmelita Antunes  |   
+Elzinda Ambrózio   |   
+Sizorfino Chagas   |
+</pre>
+
+### FULL OUTER JOIN
+
+112) **FULL OUTER JOIN:**
+```sql
+SELECT p.nome||' '||p.sobrenome "Nome Completo", c.id
+    FROM tb_pf p
+    FULL OUTER JOIN tb_colaborador c USING (cpf)
+    OFFSET 35;
+```
+
+```sql
+SELECT p.nome||' '||p.sobrenome "Nome Completo", c.id
+    FROM tb_colaborador c
+    FULL OUTER JOIN tb_pf p USING (cpf)
+    OFFSET 35;
+```
+<pre>
+Nome Completo    | id
+--------------------+----
+Estriga Souto      | 36
+Eltaminácio Santos | 37
+Maria dos Santos   | 38
+Etelvino Castro    | 39
+Carzózio da Silva  | 40
+Genovézio Gomes    |   
+Carmelita Antunes  |   
+Elzinda Ambrózio   |   
+Sizorfino Chagas   |  
+</pre>
 
 
 
