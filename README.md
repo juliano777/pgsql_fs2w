@@ -1332,17 +1332,200 @@ id
 </pre>
 
 
-
-
-
-
-
  ---
 <a id="cte"></a>
 ## CTE
+
+100) **Exibir os CPFs dos colaboradores cujo salário seja maior do que média com 90% de acréscimo:**
+```sql
+WITH c2 AS (SELECT (avg(salario) * 1.9) AS media FROM tb_colaborador)
+    SELECT c1.cpf
+        FROM tb_colaborador c1, c2
+        WHERE c1.salario > c2.media;
+```
+<pre>
+cpf     
+-------------
+11111111111
+23625814788
+12345678901
+</pre>
+
+
+
+101) **Exibir o CPF e a diferença do salário relativa à média:**
+```sql
+WITH c2 AS (SELECT avg(salario)::numeric(7, 2) media
+            FROM tb_colaborador)
+    SELECT c1.cpf "CPF", c1.salario - c2.media "Diferença da Média"
+        FROM tb_colaborador c1, c2
+        LIMIT 5;
+```
+<pre>
+CPF     | Diferença da Média
+-------------+--------------------
+11111111111 |           17445.00
+23625814788 |            7445.00
+33344455511 |            1945.00
+12345678901 |            2445.00
+10236547895 |             945.00
+</pre>
+
 ---
 <a id="juncoes"></a>
+
 ## Junções
+
+### CROSS JOIN
+
+Retorna um conjunto de informações o qual é resultante de todas as combinações
+possíveis entre os registros das tabelas envolvidas.
+
+102) **Criação da tabela de carros:**
+```sql
+CREATE TEMP TABLE tb_carro(
+    id serial PRIMARY KEY,
+    nome VARCHAR(20));
+```
+
+
+103) **Criação da tabela de cares:**
+```sql
+CREATE TEMP TABLE tb_cor(
+    id serial PRIMARY KEY,
+    nome VARCHAR(20));
+```
+
+
+104) **Popular a tabela de carros:**
+```sql
+INSERT INTO tb_carro (nome) VALUES
+    ('Fiat 147'),
+    ('VW Fusca'),
+    ('Ford Corcel'),
+    ('GM Opala');
+```
+
+
+105) **Popular a tabela de cares:**
+```sql
+INSERT INTO tb_cor (nome) VALUES
+    ('Verde'),
+    ('Azul'),
+    ('Amarelo'),
+    ('Branco'),
+    ('Preto'),
+    ('Vermelho'),
+    ('Laranja'),
+    ('Cinza');
+```
+
+
+
+106) **Duas formas diferentes para fazer junção cruzada para obter as combinações possíveis exibindo somente os primeiros 5 registros:**
+```sql
+SELECT c1.nome carro, c2.nome cor
+    FROM tb_carro c1, tb_cor c2
+    LIMIT 5;
+```
+
+```sql
+SELECT c1.nome carro, c2.nome cor
+    FROM tb_carro c1
+    CROSS JOIN
+    tb_cor c2
+    LIMIT 5;
+```
+<pre>
+carro   |   cor   
+----------+---------
+Fiat 147 | Verde
+Fiat 147 | Azul
+Fiat 147 | Amarelo
+Fiat 147 | Branco
+Fiat 147 | Preto
+</pre>
+
+
+## NATURAL JOIN
+
+Faz uma junção implícita tomando como base as colunas de mesmo nome nas
+tabelas envolvidas.<br />
+É recomendável que ao invés de usar NATURAL JOIN se use INNER JOIN, pois
+essa última explicita qual é o critério de vínculo entre tabelas deixando a leitura mais
+amigável.
+
+107) **Duas formas diferentes para fazer junção cruzada para obter as combinações possíveis exibindo somente os primeiros 5 registros:**
+```sql
+SELECT p.nome, p.sobrenome, c.salario
+    FROM tb_colaborador c
+    NATURAL JOIN tb_pf p
+    WHERE c.salario >= 5000;
+```
+<pre>
+nome    | sobrenome | salario  
+------------+-----------+----------
+Chiquinho  | da Silva  | 20000.00
+Aldebarina | Ferreira  | 10000.00
+Tungstênia | Santana   |  5000.00
+</pre>
+
+
+## INNER JOIN
+
+Retorna as informações apenas de acordo com as linhas que obedeçam as
+definições de relacionamento. Existe uma ligação lógica para se fazer a junção, a qual é
+declarada explicitamente.<br />
+É a junção padrão, que faz com que inclusive a palavra-chave INNER possa ser
+omitida.<br />
+Para o critério de junção pode-se usar a cláusula ON que especifca qual a condição
+usada ou USING que apenas diz qual campo com o mesmo nome em ambas as tabelas
+deve ser utilizado.
+
+108) **INNER JOINs com ON e USING:**
+```sql
+SELECT p.nome, p.sobrenome, c.salario
+    FROM tb_colaborador c
+    INNER JOIN tb_pf p
+    ON c.cpf = p.cpf
+    WHERE c.salario >= 5000;
+```
+
+```sql
+SELECT p.nome, p.sobrenome, c.salario
+    FROM tb_colaborador c
+    INNER JOIN tb_pf p
+    USING (cpf)
+    WHERE c.salario >= 5000;
+```
+<pre>
+nome    | sobrenome | salario  
+------------+-----------+----------
+Chiquinho  | da Silva  | 20000.00
+Aldebarina | Ferreira  | 10000.00
+Tungstênia | Santana   |  5000.00
+</pre>
+
+
+## OUTER JOIN
+
+Assim como na INNER JOIN, existe uma ligação lógica, mas não retorna apenas
+as informações que satisfaçam a regra da junção. OUTER JOINs podem ser dos tipos:
+
+. LEFT OUTER JOIN: retorna todos os registros da tabela à esquerda;
+. RIGHT OUTER JOIN: retorna todos os registros da tabela à direita;
+. FULL OUTER JOIN: retorna todos os registros de ambos os lados.
+
+É de uso opcional a palavra OUTER.<br />
+Para os exercícios serão inseridos dados na tabela tb_pf, que não tenham
+correspondência na tabela tb_colaborador.
+
+
+
+
+
+
+
 ---
 <a id="index"></a>
 ## Indexação
