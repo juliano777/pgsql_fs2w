@@ -1659,8 +1659,8 @@ SELECT
 
 114) **Verificando o plano de execução:**
 ```sql
-EXPLAIN ANALYZE SELECT campo1
-    FROM tb_index WHERE campo2 BETWEEN 235 AND 587;
+EXPLAIN ANALYZE
+SELECT campo1 FROM tb_index WHERE campo2 BETWEEN 235 AND 587;
 ```
 <pre>
 QUERY PLAN                                                
@@ -1680,8 +1680,8 @@ CREATE INDEX idx_tb_index_campo2 ON tb_index (campo2);
 
 116) **Verificando o plano de execução:**
 ```sql
-EXPLAIN ANALYZE SELECT campo1
-    FROM tb_index WHERE campo2 BETWEEN 235 AND 587;
+EXPLAIN ANALYZE
+SELECT campo1 FROM tb_index WHERE campo2 BETWEEN 235 AND 587;
 ```
 <pre>
     QUERY PLAN                                                            
@@ -1702,8 +1702,8 @@ CREATE INDEX idx_tb_index_campo2_campo3 ON tb_index (campo2, campo3);
 
 118) **Verificando o plano de consulta:**
 ```sql
-EXPLAIN ANALYZE SELECT campo1
-    FROM tb_index
+EXPLAIN ANALYZE
+SELECT campo1 FROM tb_index
     WHERE (campo2 BETWEEN 235 AND 587) AND campo3 = 1000;
 ```
 <pre>
@@ -1732,7 +1732,8 @@ INSERT INTO tb_index SELECT generate_series(1, 1000000);
 
 122) **Análise sem Índices de Valores Múltiplos de 19:**
 ```sql
-EXPLAIN ANALYZE SELECT * FROM tb_index WHERE campo1 % 19 = 0;
+EXPLAIN ANALYZE
+SELECT * FROM tb_index WHERE campo1 % 19 = 0;
 ```
 <pre>
 QUERY PLAN                                                   
@@ -1753,7 +1754,8 @@ CREATE INDEX idx_teste_index_total ON tb_index (campo1);
 
 124) **Verifica o plano de execução:**
 ```sql
-EXPLAIN ANALYZE SELECT * FROM tb_index WHERE campo1 % 19 = 0;
+EXPLAIN ANALYZE
+SELECT * FROM tb_index WHERE campo1 % 19 = 0;
 ```
 <pre>
 QUERY PLAN                                                   
@@ -1772,7 +1774,8 @@ CREATE INDEX idx_teste_index_19 ON tb_index (campo1) WHERE campo1 % 19 = 0;
 
 126) **Análise com valores múltiplos de 19:**
 ```sql
-EXPLAIN ANALYZE SELECT * FROM tb_index WHERE campo1 % 19 = 0;
+EXPLAIN ANALYZE
+SELECT * FROM tb_index WHERE campo1 % 19 = 0;
 ```
 <pre>
 QUERY PLAN                                                                 
@@ -1786,7 +1789,8 @@ Execution time: 40.926 ms
 
 127) **Análise com uma consulta de condição diferente de números divíveis por 19:**
 ```sql
-EXPLAIN ANALYZE SELECT * FROM tb_index WHERE campo1 BETWEEN 241 AND 875;
+EXPLAIN ANALYZE
+SELECT * FROM tb_index WHERE campo1 BETWEEN 241 AND 875;
 ```
 <pre>
 QUERY PLAN                                                                
