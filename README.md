@@ -1239,6 +1239,10 @@ Indexes:
 <a id="subqueries"></a>
 ## Subqueries
 
+Também conhecidas como subqueries, são SELECTs embutidos dentro de outro
+SELECT que têm por finalidade flexibilizar consultas. Esse recurso está disponível no
+PostgreSQL desde a versão 6.3.
+
 93) **Clonar o repositório db_empresa para os próximos exercícios:**
 ```bash
 git clone https://github.com/juliano777/db_empresa.git
@@ -1335,6 +1339,9 @@ id
  ---
 <a id="cte"></a>
 ## CTE
+
+A cláusula WITH fornece uma maneira de escrever comandos auxiliares para uso em uma consulta maior. Esses comandos, que são frequentemente referenciados como Common Table Expressions ou CTEs, pode ser pensado como a definição de tabelas temporárias que existem apenas para uma consulta.<br />
+Cada comando auxiliar em uma cláusula WITH pode ser um SELECT, INSERT, UPDATE, ou DELETE; e a cláusula WITH por si só é anexada a um comando principal que pode também ser um SELECT, INSERT, UPDATE, ou DELETE.
 
 100) **Exibir os CPFs dos colaboradores cujo salário seja maior do que média com 90% de acréscimo:**
 ```sql
@@ -1608,13 +1615,108 @@ Elzinda Ambrózio   |
 Sizorfino Chagas   |  
 </pre>
 
-
-
-
-
 ---
+
 <a id="index"></a>
 ## Indexação
+
+Um índice (INDEX) é um recurso que agiliza buscas de informações em tabelas.
+Imagine que você está em uma biblioteca e gostaria de procurar “O Senhor dos
+Anéis”, de Tolkien. O que seria mais fácil?: Começar a vasculhar a biblioteca inteira até
+achar o livro desejado ou buscar no arquivo da biblioteca, nas fichas que estão ordenados
+por autor? Logicamente se for escolhido ir buscar nas fichas a busca será muito mais
+rápida, pois não será necessário vasculhar livro por livro na biblioteca, porque haverá uma
+ficha do autor e daquele livro que mostrará exatamente onde está o livro desejado. É um
+apontamento para a localização do livro. Um índice de banco de dados funciona da
+mesma forma.<br />
+Indexamos campos usados como critérios de filtragem numa consulta (cláusula
+WHERE, por exemplo) e aqueles cujos valores são mais restritivos comparados a outros
+valores da tabela.<br />
+Seu funcionamento consiste em criar ponteiros para dados gravados em campos
+específicos. Quando não existe índice num campo usado como critério de filtragem, é
+feita uma varredura em toda a tabela, de maneira que haverá execuções de entrada e
+saída (I/O) de disco desnecessárias, além de também desperdiçar processamento.
+
+### Dicas Gerais
+
+* Crie índices para campos que são utilizados em condições de consultas, pelo
+menos as consultas mais frequentes;
+* Crie índices para campos de chaves estrangeiras e em campos envolvidos como
+critérios de junção (JOIN);
+* Se houver uma consulta frequente utilize índices parciais com sua condição
+conforme a consulta;
+* Para consultas que buscam faixas de valores é bom ter um índice clusterizado para
+isso.
+
+
+Criação de tabela de teste:
+
+SELECT
+    generate_series(1, 20000)::int2 AS campo1, -- 20 mil registros
+    round((random()*10000))::int2 AS campo2,
+    round((random()*10000))::int2 AS campo3 INTO tb_index;
+
+Verificando o plano de execução:
+
+EXPLAIN ANALYZE SELECT campo1
+    FROM tb_index WHERE campo2 BETWEEN 235 AND 587;
+
+
+CREATE INDEX idx_tb_index_campo2 ON tb_index (campo2);
+
+Verificando o plano de execução:
+
+EXPLAIN ANALYZE SELECT campo1
+    FROM tb_index WHERE campo2 BETWEEN 235 AND 587;
+
+Criação de índice composto:
+
+CREATE INDEX idx_tb_index_campo2_campo3 ON tb_index (campo2, campo3);
+
+Verificando o plano de consulta:
+
+EXPLAIN ANALYZE SELECT campo1
+    FROM tb_index
+    WHERE (campo2 BETWEEN 235 AND 587) AND campo3 = 1000;
+
+
+Apagando a tabela do exercício anterior:
+
+DROP TABLE tb_index;
+
+Criação da Tabela de Teste (Não Temporária):
+
+CREATE TABLE tb_index(campo1 int);
+
+Inserção de 1 Milhão de Registros:
+
+INSERT INTO tb_index SELECT generate_series(1, 1000000);
+
+Análise sem Índices de Valores Múltiplos de 19:
+
+EXPLAIN ANALYZE SELECT * FROM tb_index WHERE campo1 % 19 = 0;
+
+Criação de Índice Total :
+
+CREATE INDEX idx_teste_index_total ON tb_index (campo1);
+
+Verifica o plano de execução:
+
+EXPLAIN ANALYZE SELECT * FROM tb_index WHERE campo1 % 19 = 0;
+
+Criação de índice parcial múltiplos de 19:
+
+CREATE INDEX idx_teste_index_19 ON tb_index (campo1) WHERE campo1 % 19 = 0;
+
+Análise com valores múltiplos de 19:
+
+EXPLAIN ANALYZE SELECT * FROM tb_index WHERE campo1 % 19 = 0;
+
+Análise com uma consulta de condição diferente de números divíveis por 19:
+
+EXPLAIN ANALYZE SELECT * FROM tb_index WHERE campo1 BETWEEN 241 AND 875;
+
+
 ---
 <a id="c_type"></a>
 ## CREATE TYPE
