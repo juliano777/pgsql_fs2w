@@ -59,8 +59,8 @@ SELECT 'Um exemplo de string' AS apelido;
 ----------------------
  Um exemplo de string
  </pre>
- 
- 
+
+
  3)  **Um SELECT simples com alias contendo espaços retornando uma string:**
 ```sql
 SELECT 'Um exemplo de string' AS "apelido com espaço";
@@ -70,47 +70,47 @@ SELECT 'Um exemplo de string' AS "apelido com espaço";
 ----------------------
  Um exemplo de string
  </pre>
- 
- 
+
+
  4)  **Soma de dois números:**
 ```sql
 SELECT 5 + 2;
 ```
 <pre>
- ?column? 
+ ?column?
 ----------
         7
  </pre>
- 
- 
+
+
  5)  **Soma de dois números e alias:**
 ```sql
 SELECT 5 + 2 AS resultado;
 ```
 <pre>
- resultado 
+ resultado
 -----------
          7
  </pre>
-  
- 
+
+
  6)  **Concatenação e conversão para data:**
 ```sql
 SELECT 'Hoje é ' || now()::date AS "Concatenação e cast para date";
 ```
 <pre>
- Concatenação e cast para date 
+ Concatenação e cast para date
 -------------------------------
  Hoje é 2017-07-05
  </pre>
-   
- 
+
+
  7)  **Concatenação e conversão para hora:**
 ```sql
 SELECT 'Agora são ' || now()::time(0) AS "Concatenação e cast para time";
 ```
 <pre>
- Concatenação e cast para time 
+ Concatenação e cast para time
 -------------------------------
  Agora são 14:16:21
  </pre>
@@ -147,45 +147,45 @@ Além dos tipos de dados variados é interessante conhecer também [máscaras de
 SELECT pg_typeof(7);
 ```
 <pre>
- pg_typeof 
+ pg_typeof
 -----------
  integer
 </pre>
- 
- 
+
+
 9) **Tipo inteiro de 2 bytes:**
 ```sql
 SELECT pg_typeof(7::int2);
 ```
 <pre>
- pg_typeof 
+ pg_typeof
 -----------
  smallint
 </pre>
- 
- 
+
+
 10) **Tipo inteiro de 8 bytes:**
 ```sql
 SELECT pg_typeof(7::int8);
 ```
 <pre>
- pg_typeof 
+ pg_typeof
 -----------
  bigint
 </pre>
- 
- 
+
+
 11) **Tipo desconhecido de string:**
 ```sql
 SELECT pg_typeof('foo');
 ```
 <pre>
- pg_typeof 
+ pg_typeof
 -----------
  unknown
 </pre>
- 
- 
+
+
 12) **Tipo de string VARCHAR:**
 ```sql
 SELECT pg_typeof('foo'::varchar);
@@ -195,19 +195,19 @@ SELECT pg_typeof('foo'::varchar);
 -------------------
  character varying
 </pre>
- 
- 
+
+
 13) **Tipo de string TEXT:**
 ```sql
 SELECT pg_typeof('foo'::text);
 ```
 <pre>
- pg_typeof 
+ pg_typeof
 -----------
  text
 </pre>
- 
- 
+
+
 14) **Tipo para endereço IP:**
 ```sql
 SELECT '192.168.0.1'::inet;
@@ -217,8 +217,8 @@ SELECT '192.168.0.1'::inet;
 -------------
  192.168.0.1
 </pre>
- 
- 
+
+
 15) **E se for colocado um IP inválido?:**
 ```sql
 SELECT '192.168.0.256'::inet;
@@ -228,8 +228,8 @@ ERROR:  invalid input syntax for type inet: "192.168.0.256"
 LINE 1: SELECT '192.168.0.256'::inet;
                ^
 </pre>
- 
- 
+
+
 16) **Endereço MAC:**
 ```sql
 SELECT '00:01:07:f4:cb:55'::macaddr;
@@ -239,8 +239,8 @@ SELECT '00:01:07:f4:cb:55'::macaddr;
 -------------------
  00:01:07:f4:cb:55
 </pre>
- 
- 
+
+
 17) **Endereço CIDR:**
 ```sql
 SELECT '192.168/25'::cidr;
@@ -250,8 +250,8 @@ SELECT '192.168/25'::cidr;
 ----------------
  192.168.0.0/25
 </pre>
- 
- 
+
+
 18)  **Validação IPv4:**
 ```sql
 SELECT 'fe80::f67e:5b4f:d208:713a/64'::inet;
@@ -261,32 +261,32 @@ SELECT 'fe80::f67e:5b4f:d208:713a/64'::inet;
 ------------------------------
  fe80::f67e:5b4f:d208:713a/64
 </pre>
- 
- 
+
+
 19)  **Tamanho de um endereço de rede como texto:**
 ```sql
 SELECT pg_column_size('fe80::f67e:5b4f:d208:713a/64'::text);
 ```
 <pre>
- pg_column_size 
+ pg_column_size
 ----------------
              32
 </pre>
 
- 
- 
+
+
 20)  **Tamanho de um endereço de rede como inet:**
 ```sql
 SELECT pg_column_size('fe80::f67e:5b4f:d208:713a/64'::inet);
 ```
 <pre>
- pg_column_size 
+ pg_column_size
 ----------------
              22
 </pre>
 
- 
- 
+
+
 21)  **Máscara para CPF:**
 ```sql
 SELECT to_char(39684721495, '999"."999"."999-99') AS cpf;
@@ -297,8 +297,8 @@ SELECT to_char(39684721495, '999"."999"."999-99') AS cpf;
   396.847.214-95
 </pre>
 
- 
- 
+
+
 22)  **Converter para algarismos romanos:**
 ```sql
 SELECT to_char(2017, 'RN');
@@ -309,8 +309,8 @@ SELECT to_char(2017, 'RN');
           MMXVII
 </pre>
 
- 
- 
+
+
 23)  **Número com 7 dígitos, 2 são para casas decimais:**
 ```sql
 SELECT 10500::numeric(7, 2);
@@ -340,39 +340,39 @@ Alguns tipos de objetos de bancos de dados: DATABASE, SCHEMA, TABLE, VIEW, SEQUE
 CREATE DATABASE db_workshop;
 ```
 
- 
- 
+
+
 25)  **Usar o meta-comando \c do cliente psql para se conectar à nova base de dados:**
 ```sql
 \c db_workshop
 ```
 
- 
- 
+
+
 26)  **Função que retorna a base de dados atual:**
 ```sql
 SELECT current_database();
 ```
 <pre>
- current_database 
+ current_database
 ------------------
  db_workshop
 </pre>
 
- 
- 
+
+
 27)  **Função que retorna o usuário atual:**
 ```sql
 SELECT current_user;
 ```
 <pre>
- current_user 
+ current_user
 --------------
  postgres
 </pre>
 
- 
- 
+
+
 28)  **Criação de uma nova:**
 ```sql
 CREATE TABLE tb_produto(
@@ -382,8 +382,8 @@ CREATE TABLE tb_produto(
     descricao text);
 ```
 
- 
- 
+
+
 29)  **Verificar a estrutura da tabela:**
 ```sql
 \d tb_produto
@@ -395,29 +395,29 @@ CREATE TABLE tb_produto(
  id        | integer               | not null default nextval('tb_produto_id_seq'::regclass)
  nome      | character varying(50) | not null
  preco     | numeric(7,2)          | not null
- descricao | text                  | 
+ descricao | text                  |
 Indexes:
     "tb_produto_pkey" PRIMARY KEY, btree (id)
 </pre>
 
 
- 
- 
+
+
 30)  **Alterar a tabela adicionando um novo campo:**
 ```sql
 ALTER TABLE tb_produto ADD COLUMN campo_inteiro INT;
 ```
 
 
- 
- 
+
+
 31)  **Alterar o nome da tabela:**
 ```sql
 ALTER TABLE tb_produto RENAME TO tb_prod;
 ```
 
- 
- 
+
+
 32)  **Verificar a estrutura da tabela:**
 ```sql
 \d tb_prod
@@ -429,28 +429,28 @@ ALTER TABLE tb_produto RENAME TO tb_prod;
  id            | integer               | not null default nextval('tb_produto_id_seq'::regclass)
  nome          | character varying(50) | not null
  preco         | numeric(7,2)          | not null
- descricao     | text                  | 
- campo_inteiro | integer               | 
+ descricao     | text                  |
+ campo_inteiro | integer               |
 Indexes:
     "tb_produto_pkey" PRIMARY KEY, btree (id)
 </pre>
 
- 
- 
+
+
 33)  **Criação de uma nova tabela:**
 ```sql
 CREATE TABLE tb_foo (campo INT);
 ```
 
- 
+
 
 34)  **Criação de um novo schema:**
 ```sql
 CREATE SCHEMA sc_teste;
 ```
- 
- 
- 
+
+
+
  35)  **Listando os schemas:**
 ```sql
 SELECT nspname AS schema FROM pg_namespace;
@@ -498,8 +498,8 @@ SELECT tablename AS tabela, schemaname AS schema
  tb_foo  | sc_teste
 </pre>
 
- 
- 
+
+
 39)  **Criação de uma view baseada na consulta anterior:**
 ```sql
 CREATE VIEW vw_tabelas AS
@@ -508,41 +508,41 @@ CREATE VIEW vw_tabelas AS
     WHERE schemaname !~ 'information_schema|pg_.*';
 ```
 
- 
- 
+
+
 40)  **Consulta na view criada:**
 ```sql
 SELECT schema || '.' || tabela AS "Tabela com namespace" FROM vw_tabelas;
 ```
 <pre>
- Tabela com namespace 
+ Tabela com namespace
 ----------------------
  public.tb_prod
  public.tb_foo
  sc_teste.tb_foo
 </pre>
 
- 
- 
+
+
 40)  **Apagando as tabelas criadas:**
 ```sql
 DROP TABLE public.tb_prod, public.tb_foo, sc_teste.tb_foo;
 ```
 
- 
- 
+
+
 41)  **Apagando a view criada:**
 ```sql
 DROP VIEW vw_tabelas;
 ```
 
- 
- 
+
+
 42)  **Apagando o schema criado:**
 ```sql
 DROP SCHEMA sc_teste;
 ```
- 
+
  ---
 <a id="dml"></a>
 ## DML
@@ -577,8 +577,8 @@ CREATE TABLE tb_teste(
  Column |         Type          |                       Modifiers                       
 --------+-----------------------+-------------------------------------------------------
  id     | integer               | not null default nextval('tb_teste_id_seq'::regclass)
- campo1 | character varying(10) | 
- campo2 | integer               | 
+ campo1 | character varying(10) |
+ campo2 | integer               |
 Indexes:
     "tb_teste_pkey" PRIMARY KEY, btree (id)
 </pre>
@@ -596,7 +596,7 @@ INSERT INTO tb_teste (campo1, campo2) VALUES ('foo', 25);
 SELECT currval('tb_teste_id_seq');
 ```
 <pre>
- currval 
+ currval
 ---------
        1
 </pre>
@@ -615,7 +615,7 @@ INSERT INTO tb_teste VALUES (2, 'bar', (random() * 100)::int);
 SELECT currval('tb_teste_id_seq');
 ```
 <pre>
- currval 
+ currval
 ---------
        1
 </pre>
@@ -643,7 +643,7 @@ DETAIL:  Key (id)=(2) already exists.
 SELECT currval('tb_teste_id_seq');
 ```
 <pre>
- currval 
+ currval
 ---------
        2
 </pre>
@@ -675,7 +675,7 @@ INSERT INTO tb_teste (campo1, campo2)
 TABLE tb_teste;
 ```
 <pre>
- id |  campo1  | campo2 
+ id |  campo1  | campo2
 ----+----------+--------
   1 | foo      |     25
   2 | bar      |     12
@@ -694,7 +694,7 @@ TABLE tb_teste;
 SELECT * FROM tb_teste;
 ```
 <pre>
- id |  campo1  | campo2 
+ id |  campo1  | campo2
 ----+----------+--------
   1 | foo      |     25
   2 | bar      |     12
@@ -742,7 +742,7 @@ UPDATE tb_teste SET campo2 = 100;
 TABLE tb_teste;
 ```
 <pre>
- id |  campo1  | campo2 
+ id |  campo1  | campo2
 ----+----------+--------
   1 | foo      |    100
   2 | bar      |    100
@@ -768,7 +768,7 @@ ROLLBACK;
 TABLE tb_teste;
 ```
 <pre>
- id |  campo1  | campo2 
+ id |  campo1  | campo2
 ----+----------+--------
   1 | foo      |     25
   2 | bar      |     12
@@ -796,7 +796,7 @@ UPDATE tb_teste SET (campo1, campo2) = (NULL, 404)
     RETURNING campo1, campo2;
 ```
 <pre>
- campo1 | campo2 
+ campo1 | campo2
 --------+--------
         |    404
         |    404
@@ -818,7 +818,7 @@ DELETE FROM tb_teste WHERE campo1 IS NULL;
 DELETE FROM tb_teste WHERE id = 4 RETURNING campo1, campo2;
 ```
 <pre>
- campo1 | campo2 
+ campo1 | campo2
 --------+--------
  eggs   |     87
 </pre>
@@ -891,7 +891,7 @@ INSERT INTO tb_teste SELECT generate_series(1, 20);
 TABLE tb_teste;
 ```
 <pre>
- generate_series 
+ generate_series
 -----------------
                1
                2
@@ -922,7 +922,7 @@ TABLE tb_teste;
 SELECT * FROM tb_teste LIMIT 5;
 ```
 <pre>
- generate_series 
+ generate_series
 -----------------
                1
                2
@@ -938,7 +938,7 @@ SELECT * FROM tb_teste LIMIT 5;
 SELECT generate_series FROM tb_teste ORDER BY generate_series DESC LIMIT 5;
 ```
 <pre>
- generate_series 
+ generate_series
 -----------------
               20
               19
@@ -954,7 +954,7 @@ SELECT generate_series FROM tb_teste ORDER BY generate_series DESC LIMIT 5;
 SELECT generate_series FROM tb_teste OFFSET 15;
 ```
 <pre>
- generate_series 
+ generate_series
 -----------------
               16
               17
@@ -970,7 +970,7 @@ SELECT generate_series FROM tb_teste OFFSET 15;
 SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 0;
 ```
 <pre>
- generate_series 
+ generate_series
 -----------------
                1
                2
@@ -986,7 +986,7 @@ SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 0;
 SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 5;
 ```
 <pre>
- generate_series 
+ generate_series
 -----------------
                6
                7
@@ -1002,7 +1002,7 @@ SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 5;
 SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 10;
 ```
 <pre>
- generate_series 
+ generate_series
 -----------------
               11
               12
@@ -1019,7 +1019,7 @@ SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 10;
 ## Chave Estrangeira
 
 Especifica que o valor da coluna deve corresponder a um valor que esteja na
-coluna da tabela referenciada. 
+coluna da tabela referenciada.
 Os valores dos campos referenciados devem ser únicos. Chamamos isso de
 integridade referencial.<br />
 
@@ -1063,10 +1063,10 @@ HINT:  Use DROP ... CASCADE to drop the dependent objects too.
 ```
 <pre>
           Table "pg_temp_2.tb_uf"
- Column |         Type          | Modifiers 
+ Column |         Type          | Modifiers
 --------+-----------------------+-----------
  id     | character(2)          | not null
- nome   | character varying(30) | 
+ nome   | character varying(30) |
 Indexes:
     "tb_uf_pkey" PRIMARY KEY, btree (id)
 Referenced by:
@@ -1087,8 +1087,8 @@ Referenced by:
  Column |         Type          |                       Modifiers                        
 --------+-----------------------+--------------------------------------------------------
  id     | integer               | not null default nextval('tb_cidade_id_seq'::regclass)
- nome   | character varying(40) | 
- uf     | character(2)          | 
+ nome   | character varying(40) |
+ uf     | character(2)          |
 Indexes:
     "tb_cidade_pkey" PRIMARY KEY, btree (id)
 Foreign-key constraints:
@@ -1141,7 +1141,7 @@ TO,TOCANTINS
 PB,PARAIBA
 </pre>
 
-Dê <ENTER> e logo em seguida <Ctrl> + <D>.
+Dê &lt;ENTER&gt; e logo em seguida &lt;Ctrl&gt; + &lt;D&gt;.
 
 
 85) **Inserir valores para a tabela tb_cidade:**
@@ -1228,8 +1228,8 @@ NOTICE:  drop cascades to constraint tb_cidade_uf_fkey on table tb_cidade
  Column |         Type          |                       Modifiers                        
 --------+-----------------------+--------------------------------------------------------
  id     | integer               | not null default nextval('tb_cidade_id_seq'::regclass)
- nome   | character varying(40) | 
- uf     | character(2)          | 
+ nome   | character varying(40) |
+ uf     | character(2)          |
 Indexes:
     "tb_cidade_pkey" PRIMARY KEY, btree (id)
 </pre>
@@ -1238,6 +1238,105 @@ Indexes:
 ---
 <a id="subqueries"></a>
 ## Subqueries
+
+93) **Clonar o repositório db_empresa para os próximos exercícios:**
+```bash
+git clone https://github.com/juliano777/db_empresa.git
+```
+
+
+
+
+94) **Entrar no diretório db_empresa:**
+```bash
+cd db_empresa/
+```
+
+
+
+95) **Criar a estrutura da base de dados db_empresa:**
+```bash
+psql -f db_empresa-schema.sql
+```
+
+
+
+95) **Carregar os dados da base db_empresa:**
+```bash
+psql -f db_empresa-data.sql db_empresa
+```
+
+
+96) **Via shell, pelo psql se conectar na base:**
+```bash
+psql db_empresa
+```
+
+
+97) **Exibir os CPFs dos colaboradores cujo salário seja maior do que média com 90% de acréscimo:**
+```sql
+SELECT c1.cpf
+    FROM tb_colaborador c1
+    WHERE salario > (SELECT (avg(c2.salario) * 1.9)
+                     FROM tb_colaborador c2);
+```
+<pre>
+cpf     
+-------------
+11111111111
+23625814788
+12345678901
+</pre>
+
+
+
+98) **Exibir o CPF e a diferença do salário relativa à média:**
+```sql
+SELECT c1.cpf "CPF", c1.salario -
+    (SELECT avg(c2.salario) FROM tb_colaborador c2)::numeric(7, 2)
+    "Diferença da Média"
+    FROM tb_colaborador c1
+    LIMIT 5;
+```
+<pre>
+CPF     | Diferença da Média
+-------------+--------------------
+11111111111 |           17445.00
+23625814788 |            7445.00
+33344455511 |            1945.00
+12345678901 |            2445.00
+10236547895 |             945.00
+</pre>
+
+
+
+99) **Selecionar id de tb_colaborador onde o cpf não está entre os valores retornados da
+subconsulta e o setor deve ser igual a 3:**
+```sql
+SELECT c.id
+    FROM tb_colaborador c
+    WHERE c.cpf NOT IN
+        (SELECT p.cpf
+            FROM tb_pf p
+            WHERE p.dt_Nascto
+                BETWEEN '1982-01-01' AND '1983-12-31') AND setor = 3;
+```
+<pre>
+id
+----
+ 9
+11
+12
+13
+15
+</pre>
+
+
+
+
+
+
+
  ---
 <a id="cte"></a>
 ## CTE
