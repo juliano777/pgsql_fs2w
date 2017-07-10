@@ -1649,34 +1649,41 @@ conforme a consulta;
 isso.
 
 
-Criação de tabela de teste:
-
+113) **Criação de tabela de teste:**
+```sql
 SELECT
     generate_series(1, 20000)::int2 AS campo1, -- 20 mil registros
     round((random()*10000))::int2 AS campo2,
     round((random()*10000))::int2 AS campo3 INTO tb_index;
+```
 
-Verificando o plano de execução:
-
+114) **Verificando o plano de execução:**
+```sql
 EXPLAIN ANALYZE SELECT campo1
     FROM tb_index WHERE campo2 BETWEEN 235 AND 587;
-
-    QUERY PLAN                                                
+```
+<pre>
+QUERY PLAN                                                
 ---------------------------------------------------------------------------------------------------------
 Seq Scan on tb_index  (cost=0.00..389.00 rows=688 width=2) (actual time=0.036..10.163 rows=679 loops=1)
 Filter: ((campo2 >= 235) AND (campo2 <= 587))
 Rows Removed by Filter: 19321
 Planning time: 0.189 ms
-Execution time: 10.245 ms    
+Execution time: 10.245 ms
+</pre>
 
 
+115) **Criação de índice:**
+```sql
 CREATE INDEX idx_tb_index_campo2 ON tb_index (campo2);
+```
 
-Verificando o plano de execução:
-
+116) **Verificando o plano de execução:**
+```sql
 EXPLAIN ANALYZE SELECT campo1
     FROM tb_index WHERE campo2 BETWEEN 235 AND 587;
-
+```
+<pre>
     QUERY PLAN                                                            
 ---------------------------------------------------------------------------------------------------------------------------------
 Bitmap Heap Scan on tb_index  (cost=15.34..114.66 rows=688 width=2) (actual time=0.344..0.981 rows=679 loops=1)
@@ -1686,23 +1693,38 @@ Heap Blocks: exact=89
 Index Cond: ((campo2 >= 235) AND (campo2 <= 587))
 Planning time: 0.363 ms
 Execution time: 1.073 ms
+</pre>
 
-Criação de índice composto:
-
+117) **Criação de índice composto:**
+```sql
 CREATE INDEX idx_tb_index_campo2_campo3 ON tb_index (campo2, campo3);
+```
 
-Verificando o plano de consulta:
-
+117) **Verificando o plano de consulta:**
+```sql
 EXPLAIN ANALYZE SELECT campo1
     FROM tb_index
     WHERE (campo2 BETWEEN 235 AND 587) AND campo3 = 1000;
-
-    QUERY PLAN                                                              
+```
+<pre>
+QUERY PLAN                                                              
 --------------------------------------------------------------------------------------------------------------------------------------
 Index Scan using idx_tb_index_campo2_campo3 on tb_index  (cost=0.29..20.90 rows=1 width=2) (actual time=0.086..0.190 rows=1 loops=1)
 Index Cond: ((campo2 >= 235) AND (campo2 <= 587) AND (campo3 = 1000))
 Planning time: 0.414 ms
 Execution time: 0.227 ms
+</pre>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1722,6 +1744,14 @@ Análise sem Índices de Valores Múltiplos de 19:
 
 EXPLAIN ANALYZE SELECT * FROM tb_index WHERE campo1 % 19 = 0;
 
+QUERY PLAN                                                   
+---------------------------------------------------------------------------------------------------------------
+Seq Scan on tb_index  (cost=0.00..19425.00 rows=5000 width=4) (actual time=0.033..309.389 rows=52631 loops=1)
+Filter: ((campo1 % 19) = 0)
+Rows Removed by Filter: 947369
+Planning time: 0.117 ms
+Execution time: 311.717 ms
+
 Criação de Índice Total :
 
 CREATE INDEX idx_teste_index_total ON tb_index (campo1);
@@ -1729,6 +1759,14 @@ CREATE INDEX idx_teste_index_total ON tb_index (campo1);
 Verifica o plano de execução:
 
 EXPLAIN ANALYZE SELECT * FROM tb_index WHERE campo1 % 19 = 0;
+
+QUERY PLAN                                                   
+---------------------------------------------------------------------------------------------------------------
+Seq Scan on tb_index  (cost=0.00..19425.00 rows=5000 width=4) (actual time=0.036..313.418 rows=52631 loops=1)
+Filter: ((campo1 % 19) = 0)
+Rows Removed by Filter: 947369
+Planning time: 0.271 ms
+Execution time: 315.805 ms
 
 Criação de índice parcial múltiplos de 19:
 
@@ -1738,10 +1776,24 @@ Análise com valores múltiplos de 19:
 
 EXPLAIN ANALYZE SELECT * FROM tb_index WHERE campo1 % 19 = 0;
 
+QUERY PLAN                                                                 
+--------------------------------------------------------------------------------------------------------------------------------------------
+Index Only Scan using idx_teste_index_19 on tb_index  (cost=0.29..157.29 rows=5000 width=4) (actual time=0.053..37.198 rows=52631 loops=1)
+Heap Fetches: 52631
+Planning time: 0.321 ms
+Execution time: 40.926 ms
+
 Análise com uma consulta de condição diferente de números divíveis por 19:
 
 EXPLAIN ANALYZE SELECT * FROM tb_index WHERE campo1 BETWEEN 241 AND 875;
 
+QUERY PLAN                                                                
+------------------------------------------------------------------------------------------------------------------------------------------
+Index Only Scan using idx_teste_index_total on tb_index  (cost=0.42..26.82 rows=620 width=4) (actual time=0.043..0.487 rows=635 loops=1)
+Index Cond: ((campo1 >= 241) AND (campo1 <= 875))
+Heap Fetches: 635
+Planning time: 0.333 ms
+Execution time: 0.563 ms
 
 ---
 <a id="c_type"></a>
