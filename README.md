@@ -1715,30 +1715,25 @@ Planning time: 0.414 ms
 Execution time: 0.227 ms
 </pre>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Apagando a tabela do exercício anterior:
-
+119) **Apagando a tabela do exercício anterior:**
+```sql
 DROP TABLE tb_index;
+```
 
-Criação da Tabela de Teste (Não Temporária):
-
+120) **Criação da Tabela de Teste (Não Temporária):**
+```sql
 CREATE TABLE tb_index(campo1 int);
+```
 
-Inserção de 1 Milhão de Registros:
-
+121) **Inserção de 1 Milhão de Registros:**
+```sql
 INSERT INTO tb_index SELECT generate_series(1, 1000000);
+```
+
+
+
+
+
 
 Análise sem Índices de Valores Múltiplos de 19:
 
