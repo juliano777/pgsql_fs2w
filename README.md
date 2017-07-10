@@ -1700,7 +1700,7 @@ Execution time: 1.073 ms
 CREATE INDEX idx_tb_index_campo2_campo3 ON tb_index (campo2, campo3);
 ```
 
-117) **Verificando o plano de consulta:**
+118) **Verificando o plano de consulta:**
 ```sql
 EXPLAIN ANALYZE SELECT campo1
     FROM tb_index
