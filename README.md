@@ -1512,9 +1512,9 @@ Tungstênia | Santana   |  5000.00
 Assim como na INNER JOIN, existe uma ligação lógica, mas não retorna apenas
 as informações que satisfaçam a regra da junção. OUTER JOINs podem ser dos tipos:
 
-. LEFT OUTER JOIN: retorna todos os registros da tabela à esquerda;
-. RIGHT OUTER JOIN: retorna todos os registros da tabela à direita;
-. FULL OUTER JOIN: retorna todos os registros de ambos os lados.
+* LEFT OUTER JOIN: retorna todos os registros da tabela à esquerda;
+* RIGHT OUTER JOIN: retorna todos os registros da tabela à direita;
+* FULL OUTER JOIN: retorna todos os registros de ambos os lados.
 
 É de uso opcional a palavra OUTER.<br />
 Para os exercícios serão inseridos dados na tabela tb_pf, que não tenham
