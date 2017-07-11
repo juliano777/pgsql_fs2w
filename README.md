@@ -1828,7 +1828,7 @@ tipo de elemento (chamado de subtipo de faixa).
 ### Simbologia de Limites de Intervalos
 
 * ( ) → Parênteses: para simbolizar respectivamente limites inicial e final do tipo aberto;
-* \\\[ \\\] → Colchetes: representam respectivamente limites inicial e final do tipo fechado.
+* \\[ \\] → Colchetes: representam respectivamente limites inicial e final do tipo fechado.
 
 ### Built-in Range Types
 O PostgreSQL nativamente vem com os seguintes range types:
