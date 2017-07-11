@@ -14,14 +14,30 @@
  * [**CTE**](#cte)
  * [**Junções**](#juncoes)
  * [**Indexação**](#index)
- * [**CREATE TYPE**](#c_type)
- * [**DOMAIN**](#domain)
  * [**Range Types**](#range)
+ * [**DOMAIN**](#domain)
  * [**Acessando o Postgres via Python (psycopg2)**](#python)
 ---
 
 <a id="preparacao"></a>
 ## Preparação do Ambiente
+
+### Baixar e Instalar
+
+* [VirtualBox](https://www.virtualbox.org/)
+* [WinSCP (Somente Windows)](https://winscp.net/)
+
+#### VirtualBox
+
+* Criar Interface de Rede Host-Only:
+
+File &rarr; Preferences &rarr; Network &rarr; Host-only Networks &rarr; + &rarr; OK
+
+* Importar a Imagem Appliance:
+
+File &rarr; Import Appliance... &rarr; (localize o arquivo .ova) &rarr; Next &rarr; Import
+
+
 
 ---
 <a id="pg"></a><p />
@@ -1802,15 +1818,147 @@ Planning time: 0.333 ms
 Execution time: 0.563 ms
 </pre>
 ---
-<a id="c_type"></a>
-## CREATE TYPE
+<a id="range"></a>
+## Range Types
+
+Range Types são tipos de dados que representam uma faixa de valores de algum
+tipo de elemento (chamado de subtipo de faixa).
+
+### Simbologia de Limites de Intervalos
+
+* ( ) → Parênteses: para simbolizar respectivamente limites inicial e final do tipo aberto;
+* [ ] → Colchetes: representam respectivamente limites inicial e final do tipo fechado.
+
+### Built-in Range Types
+O PostgreSQL nativamente vem com os seguintes range types:
+• int4range: Inteiro de 4 bytes (int4, int, integer);
+• int8range: Inteiro de 8 bytes (int8, bigint);
+• numrange: Ponto flutuante (numeric);
+• tsrange: timestamp sem time zone;
+• tstzrange: timestamp com time zone;
+• daterange: Data (date)
+
+Em adição, você pode definir seus próprios range types; veja CREATE TYPE para mais informações.
+
+
+Intervalo fechado de 2 a 9 (int4):
+
+SELECT '[2, 9]'::int4range;
+
+Intervalo aberto em 2 e fechado em 9 (int4):
+
+SELECT '(2, 9]'::int4range;
+
+
+Intervalos fechados usando data:
+
+SELECT '[2017-07-15 09:00, 2017-07-15 14:00]'::tsrange;
+                    tsrange                    
+-----------------------------------------------
+ ["2017-07-15 09:00:00","2017-07-15 14:00:00"]
+
+
+ No intervalo de 10 a 20 contém 3 (função int4range)?
+
+ SELECT int4range(10, 20) @> 3;
+
+
+O valor 10 está contido entre 10 e 20 (função int4range)?
+
+SELECT 10 <@ int4range(10, 20);
+
+Para fixação dos conceitos aprendidos nos exercícios anteriores, agora vamos criar uma tabela de reservas:
+
+CREATE TABLE tb_reserva(
+    sala int PRIMARY KEY,
+    duracao tsrange);
+
+
+Populando a tabela:
+
+INSERT INTO tb_reserva VALUES
+    (1, '[2014-11-01 14:30, 2014-11-01 18:30)'),
+    (2, '[2014-11-02 11:00, 2014-11-02 15:00)'),
+    (3, '[2014-11-03 11:00, 2014-11-03 15:00)'),
+    (4, '[2014-11-04 17:00, 2014-11-04 19:00)');
+
+Verificando a tabela:
+
+TABLE tb_reserva;
+
+sala |                    duracao                    
+------+-----------------------------------------------
+   1 | ["2014-11-01 14:30:00","2014-11-01 18:30:00")
+   2 | ["2014-11-02 11:00:00","2014-11-02 15:00:00")
+   3 | ["2014-11-03 11:00:00","2014-11-03 15:00:00")
+   4 | ["2014-11-04 17:00:00","2014-11-04 19:00:00")
+
+
+Verificando se há alguma sala cuja data e hora esteja contida em alguma duração de reserva:
+
+SELECT * FROM tb_reserva WHERE '2014-11-02 12:33'::timestamp <@ duracao;
+
+sala |                    duracao                    
+------+-----------------------------------------------
+   2 | ["2014-11-02 11:00:00","2014-11-02 15:00:00")
+
+
+Verificando se há alguma sala cuja duração contém a data e hora informada:
+
+SELECT * FROM tb_reserva WHERE duracao @> '2014-11-03 14:21'::timestamp;   
+
+sala |                    duracao                    
+------+-----------------------------------------------
+   3 | ["2014-11-03 11:00:00","2014-11-03 15:00:00")
+
+
+
 ---
 <a id="domain"></a>
 ## DOMAIN
----
-<a id="range"></a>
-## Range Types
+
+Domínio é um tipo de dado personalizado em que se pode definir como os dados
+serão inseridos de acordo com restrições definidas opcionalmente.
+
+Criação de um domínio, para validar CEPs que aceita inteiros com sete ou oito dígitos:
+
+CREATE DOMAIN dom_cep AS integer
+CONSTRAINT chk_cep
+CHECK (length(VALUE::text) = 7
+OR length(VALUE::text) = 8);
+
+Criação de uma tabela que usará o domínio criado como tipo de dado para uma coluna:
+
+CREATE TEMP TABLE tb_endereco_tmp(
+id serial PRIMARY KEY,
+cep dom_cep,
+logradouro text,
+numero smallint,
+cidade varchar(50),
+uf char(2));
+
+Inserções na Tabela com o domíno criado:
+
+INSERT INTO tb_endereco_tmp (cep, logradouro, numero, cidade, uf) VALUES
+(1001000, 'Pça. da Sé', null,'São Paulo','SP'),
+(30130003, 'Av. Afonso Pena', 1212, 'Belo Horizonte', 'MG');
+
+Selecionando os dados:
+
+SELECT
+to_char(cep, '00000-000') "CEP",
+logradouro "Logradouro",
+numero "Número",
+cidade "Cidade",
+uf "Estado"
+FROM tb_endereco_tmp;
+
+
+
+
 ---
 <a id="python"></a>
 ## Acessando o Postgres via Python (psycopg2)
+
+
 ---
