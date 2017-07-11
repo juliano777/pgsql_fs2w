@@ -22,8 +22,9 @@
 <a id="preparacao"></a>
 ## Preparação do Ambiente
 
-### Baixar e Instalar
+### Baixar / Instalar
 
+* [Imagem (arquivo .ova) VirtualBox](https://drive.google.com/open?id=0BxpIiayGYAzoelY1MTd2RXdINU0)
 * [VirtualBox](https://www.virtualbox.org/)
 * [WinSCP (Somente Windows)](https://winscp.net/)
 
