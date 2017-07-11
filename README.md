@@ -390,7 +390,7 @@ SELECT current_user;
 
 
 
-28)  **Criação de uma nova:**
+28)  **Criação de uma nova tabela:**
 ```sql
 CREATE TABLE tb_produto(
     id serial PRIMARY KEY,
@@ -1386,13 +1386,13 @@ WITH c2 AS (SELECT avg(salario)::numeric(7, 2) media
         LIMIT 5;
 ```
 <pre>
-CPF     | Diferença da Média
+CPF          | Diferença da Média
 -------------+--------------------
-11111111111 |           17445.00
-23625814788 |            7445.00
-33344455511 |            1945.00
-12345678901 |            2445.00
-10236547895 |             945.00
+11111111111  |           17445.00
+23625814788  |            7445.00
+33344455511  |            1945.00
+12345678901  |            2445.00
+10236547895  |             945.00
 </pre>
 
 ---
@@ -1461,13 +1461,13 @@ SELECT c1.nome carro, c2.nome cor
     LIMIT 5;
 ```
 <pre>
-carro   |   cor   
+carro     |   cor   
 ----------+---------
-Fiat 147 | Verde
-Fiat 147 | Azul
-Fiat 147 | Amarelo
-Fiat 147 | Branco
-Fiat 147 | Preto
+Fiat 147  | Verde
+Fiat 147  | Azul
+Fiat 147  | Amarelo
+Fiat 147  | Branco
+Fiat 147  | Preto
 </pre>
 
 
@@ -1487,11 +1487,11 @@ SELECT p.nome, p.sobrenome, c.salario
     WHERE c.salario >= 5000;
 ```
 <pre>
-nome    | sobrenome | salario  
+nome        | sobrenome | salario  
 ------------+-----------+----------
-Chiquinho  | da Silva  | 20000.00
-Aldebarina | Ferreira  | 10000.00
-Tungstênia | Santana   |  5000.00
+Chiquinho   | da Silva  | 20000.00
+Aldebarina  | Ferreira  | 10000.00
+Tungstênia  | Santana   |  5000.00
 </pre>
 
 
@@ -1523,11 +1523,11 @@ SELECT p.nome, p.sobrenome, c.salario
     WHERE c.salario >= 5000;
 ```
 <pre>
-nome    | sobrenome | salario  
+nome        | sobrenome | salario  
 ------------+-----------+----------
-Chiquinho  | da Silva  | 20000.00
-Aldebarina | Ferreira  | 10000.00
-Tungstênia | Santana   |  5000.00
+Chiquinho   | da Silva  | 20000.00
+Aldebarina  | Ferreira  | 10000.00
+Tungstênia  | Santana   |  5000.00
 </pre>
 
 
@@ -1566,17 +1566,17 @@ SELECT p.nome||' '||p.sobrenome "Nome Completo", c.id
     OFFSET 35;
 ```
 <pre>
-Nome Completo    | id
+Nome Completo       | id
 --------------------+----
-Estriga Souto      | 36
-Eltaminácio Santos | 37
-Maria dos Santos   | 38
-Etelvino Castro    | 39
-Carzózio da Silva  | 40
-Genovézio Gomes    |   
-Carmelita Antunes  |   
-Elzinda Ambrózio   |   
-Sizorfino Chagas   |
+Estriga Souto       | 36
+Eltaminácio Santos  | 37
+Maria dos Santos    | 38
+Etelvino Castro     | 39
+Carzózio da Silva   | 40
+Genovézio Gomes     |   
+Carmelita Antunes   |   
+Elzinda Ambrózio    |   
+Sizorfino Chagas    |
 </pre>
 
 ### RIGHT OUTER JOIN
@@ -1589,17 +1589,17 @@ SELECT p.nome||' '||p.sobrenome "Nome Completo", c.id
     OFFSET 35;
 ```
 <pre>
-Nome Completo    | id
+Nome Completo       | id
 --------------------+----
-Estriga Souto      | 36
-Eltaminácio Santos | 37
-Maria dos Santos   | 38
-Etelvino Castro    | 39
-Carzózio da Silva  | 40
-Genovézio Gomes    |   
-Carmelita Antunes  |   
-Elzinda Ambrózio   |   
-Sizorfino Chagas   |
+Estriga Souto       | 36
+Eltaminácio Santos  | 37
+Maria dos Santos    | 38
+Etelvino Castro     | 39
+Carzózio da Silva   | 40
+Genovézio Gomes     |   
+Carmelita Antunes   |   
+Elzinda Ambrózio    |   
+Sizorfino Chagas    |
 </pre>
 
 ### FULL OUTER JOIN
@@ -1619,17 +1619,17 @@ SELECT p.nome||' '||p.sobrenome "Nome Completo", c.id
     OFFSET 35;
 ```
 <pre>
-Nome Completo    | id
+Nome Completo       | id
 --------------------+----
-Estriga Souto      | 36
-Eltaminácio Santos | 37
-Maria dos Santos   | 38
-Etelvino Castro    | 39
-Carzózio da Silva  | 40
-Genovézio Gomes    |   
-Carmelita Antunes  |   
-Elzinda Ambrózio   |   
-Sizorfino Chagas   |  
+Estriga Souto       | 36
+Eltaminácio Santos  | 37
+Maria dos Santos    | 38
+Etelvino Castro     | 39
+Carzózio da Silva   | 40
+Genovézio Gomes     |   
+Carmelita Antunes   |   
+Elzinda Ambrózio    |   
+Sizorfino Chagas    |  
 </pre>
 
 ---
@@ -1841,22 +1841,57 @@ O PostgreSQL nativamente vem com os seguintes range types:
 
 Em adição, você pode definir seus próprios range types; veja CREATE TYPE para mais informações.
 
-
-Intervalo fechado de 2 a 9 (int4):
-
+128) **Intervalo fechado de 2 a 9 (int4):**
+```sql
 SELECT '[2, 9]'::int4range;
+```
 
-Intervalo aberto em 2 e fechado em 9 (int4):
-
+129) **Intervalo aberto em 2 e fechado em 9 (int4):**
+```sql
 SELECT '(2, 9]'::int4range;
+```
 
-
-Intervalos fechados usando data:
-
+130) **Intervalos fechados usando data:**
+```sql
 SELECT '[2017-07-15 09:00, 2017-07-15 14:00]'::tsrange;
-                    tsrange                    
+```
+<pre>
+tsrange                    
 -----------------------------------------------
- ["2017-07-15 09:00:00","2017-07-15 14:00:00"]
+["2017-07-15 09:00:00","2017-07-15 14:00:00"]
+</pre>
+
+131) ****
+```sql
+
+```
+
+132) ****
+```sql
+
+```
+
+133) ****
+```sql
+
+```
+
+134) ****
+```sql
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  No intervalo de 10 a 20 contém 3 (função int4range)?
