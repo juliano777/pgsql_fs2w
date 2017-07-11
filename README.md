@@ -1845,11 +1845,21 @@ Em adição, você pode definir seus próprios range types; veja CREATE TYPE par
 ```sql
 SELECT '[2, 9]'::int4range;
 ```
+<pre>
+int4range
+-----------
+[2,10)
+</pre>
 
 129) **Intervalo aberto em 2 e fechado em 9 (int4):**
 ```sql
 SELECT '(2, 9]'::int4range;
 ```
+<pre>
+int4range
+-----------
+[3,10)
+</pre>
 
 130) **Intervalos fechados usando data:**
 ```sql
@@ -1861,73 +1871,71 @@ tsrange
 ["2017-07-15 09:00:00","2017-07-15 14:00:00"]
 </pre>
 
-131) ****
+131) **No intervalo de 10 a 20 contém 3 (função int4range)?**
 ```sql
-
+SELECT int4range(10, 20) @> 3;
 ```
+<pre>
+ ?column?
+----------
+ f
+</pre>
 
-132) ****
+132) **O valor 10 está contido entre 10 e 20 (função int4range)?**
 ```sql
-
+SELECT 10 <@ int4range(10, 20);
 ```
+<pre>
+?column?
+----------
+t
+</pre>
 
 133) ****
 ```sql
 
 ```
+<pre>
+</pre>
 
-134) ****
+134) **Para fixação dos conceitos aprendidos nos exercícios anteriores, agora vamos criar uma tabela de reservas:**
 ```sql
-
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- No intervalo de 10 a 20 contém 3 (função int4range)?
-
- SELECT int4range(10, 20) @> 3;
-
-
-O valor 10 está contido entre 10 e 20 (função int4range)?
-
-SELECT 10 <@ int4range(10, 20);
-
-Para fixação dos conceitos aprendidos nos exercícios anteriores, agora vamos criar uma tabela de reservas:
-
 CREATE TABLE tb_reserva(
     sala int PRIMARY KEY,
     duracao tsrange);
+```
 
-
-Populando a tabela:
-
+135) **Populando a tabela:**
+```sql
 INSERT INTO tb_reserva VALUES
     (1, '[2014-11-01 14:30, 2014-11-01 18:30)'),
     (2, '[2014-11-02 11:00, 2014-11-02 15:00)'),
     (3, '[2014-11-03 11:00, 2014-11-03 15:00)'),
     (4, '[2014-11-04 17:00, 2014-11-04 19:00)');
+```
 
-Verificando a tabela:
-
+136) **Verificando a tabela:**
+```sql
 TABLE tb_reserva;
-
-sala |                    duracao                    
+```
+<pre>
+sala  |                    duracao                    
 ------+-----------------------------------------------
-   1 | ["2014-11-01 14:30:00","2014-11-01 18:30:00")
-   2 | ["2014-11-02 11:00:00","2014-11-02 15:00:00")
-   3 | ["2014-11-03 11:00:00","2014-11-03 15:00:00")
-   4 | ["2014-11-04 17:00:00","2014-11-04 19:00:00")
+   1  | ["2014-11-01 14:30:00","2014-11-01 18:30:00")
+   2  | ["2014-11-02 11:00:00","2014-11-02 15:00:00")
+   3  | ["2014-11-03 11:00:00","2014-11-03 15:00:00")
+   4  | ["2014-11-04 17:00:00","2014-11-04 19:00:00")
+</pre>   
+
+
+
+
+
+
+
+
+
+
 
 
 Verificando se há alguma sala cuja data e hora esteja contida em alguma duração de reserva:
