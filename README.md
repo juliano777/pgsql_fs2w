@@ -810,7 +810,7 @@ UPDATE tb_teste SET campo2 = 100 WHERE id = 2;
 
 
 
-62) **:**
+62) **UPDATE com a cláusula BETWEEN:**
 ```sql
 UPDATE tb_teste SET (campo1, campo2) = (NULL, 404)
     WHERE id BETWEEN 5 AND 9
