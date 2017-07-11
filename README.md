@@ -1932,38 +1932,15 @@ sala  |                    duracao
 </pre>
 
 
-137) ****
+137) **Verificando se há alguma sala cuja duração contém a data e hora informada:**
 ```sql
-
+SELECT * FROM tb_reserva WHERE duracao @> '2014-11-03 14:21'::timestamp;
 ```
 <pre>
-</pre>
-
-
-138) ****
-```sql
-
-```
-<pre>
-</pre>
-
-
-
-
-
-
-
-
-
-Verificando se há alguma sala cuja duração contém a data e hora informada:
-
-SELECT * FROM tb_reserva WHERE duracao @> '2014-11-03 14:21'::timestamp;   
-
-sala |                    duracao                    
+sala  |                    duracao                    
 ------+-----------------------------------------------
-   3 | ["2014-11-03 11:00:00","2014-11-03 15:00:00")
-
-
+   3  | ["2014-11-03 11:00:00","2014-11-03 15:00:00")
+</pre>
 
 ---
 <a id="domain"></a>
@@ -1972,45 +1949,173 @@ sala |                    duracao
 Domínio é um tipo de dado personalizado em que se pode definir como os dados
 serão inseridos de acordo com restrições definidas opcionalmente.
 
-Criação de um domínio, para validar CEPs que aceita inteiros com sete ou oito dígitos:
-
+138) **Criação de um domínio, para validar CEPs que aceita inteiros com sete ou oito dígitos:**
+```sql
 CREATE DOMAIN dom_cep AS integer
-CONSTRAINT chk_cep
-CHECK (length(VALUE::text) = 7
-OR length(VALUE::text) = 8);
+    CONSTRAINT chk_cep
+        CHECK (length(VALUE::text) = 7
+        OR length(VALUE::text) = 8);
+```
 
-Criação de uma tabela que usará o domínio criado como tipo de dado para uma coluna:
-
+139) **Criação de uma tabela que usará o domínio criado como tipo de dado para uma coluna:**
+```sql
 CREATE TEMP TABLE tb_endereco_tmp(
-id serial PRIMARY KEY,
-cep dom_cep,
-logradouro text,
-numero smallint,
-cidade varchar(50),
-uf char(2));
+    id serial PRIMARY KEY,
+    cep dom_cep,
+    logradouro text,
+    numero smallint,
+    cidade varchar(50),
+    uf char(2));
+```
 
-Inserções na Tabela com o domíno criado:
 
+140) **Inserções na Tabela com o domíno criado:**
+```sql
 INSERT INTO tb_endereco_tmp (cep, logradouro, numero, cidade, uf) VALUES
-(1001000, 'Pça. da Sé', null,'São Paulo','SP'),
-(30130003, 'Av. Afonso Pena', 1212, 'Belo Horizonte', 'MG');
+    (1001000, 'Pça. da Sé', null,'São Paulo','SP'),
+    (30130003, 'Av. Afonso Pena', 1212, 'Belo Horizonte', 'MG');
+```
 
-Selecionando os dados:
 
+141) **Selecionando os dados:**
+```sql
 SELECT
-to_char(cep, '00000-000') "CEP",
-logradouro "Logradouro",
-numero "Número",
-cidade "Cidade",
-uf "Estado"
-FROM tb_endereco_tmp;
-
-
-
+    to_char(cep, '00000-000') "CEP",
+    logradouro "Logradouro",
+    numero "Número",
+    cidade "Cidade",
+    uf "Estado"
+    FROM tb_endereco_tmp;
+```
+<pre>
+    CEP     |   Logradouro    | Número |     Cidade     | Estado
+------------+-----------------+--------+----------------+--------
+  01001-000 | Pça. da Sé      |        | São Paulo      | SP
+  30130-003 | Av. Afonso Pena |   1212 | Belo Horizonte | MG
+</pre>
 
 ---
 <a id="python"></a>
 ## Acessando o Postgres via Python (psycopg2)
 
+```python
+import pprint  # Módulo "Pretty Print"
+import psycopg2  # Driver PostgreSQL
+
+# String de conexão
+str_conexao = """
+dbname='db_empresa'
+user='aluno'
+password='123'
+host='192.168.56.2'
+application_name='pypg'
+options='-c log_min_duration_statement=0'
+"""
+
+# Dentro do bloco try fazer a conexão ao banco
+try:
+    # Conexão ao banco
+    conexao = psycopg2.connect(str_conexao)
+
+except Exception as e:
+    # Exibe a string abaixo e também a mensagem de Exception
+    print('Erro de conexão!\n\n{}'.format(e))
+
+# Após a conexão devidamente estabelecida se conecte ao servidor de banco
+# de dados via SSH.
+# Se conecte localmente via psql e execute a seguinte query:
+# SELECT * FROM pg_stat_activity WHERE client_addr IS NOT NULL;
+
+
+
+# Criação de cursor para executar queries
+cursor = conexao.cursor()
+
+
+# String SQL
+str_sql = 'SELECT cpf, nome, sobrenome FROM tb_pf;'
+
+# Executa o comando SQL
+cursor.execute(str_sql)
+
+# Linhas retornadas pela consulta
+rows = cursor.fetchall()
+
+# Verifica o tipo da variável
+type(rows)
+
+# Criação da variável para impressão amigável em tela
+pp = pprint.PrettyPrinter(indent=4)
+
+# Método pprint para exibir de forma amigável o conteúdo de rows
+pp.pprint(rows)
+
+# Exibe a segunda linha
+print(rows[1])
+
+# Segunda linha e primeira coluna (cpf)
+print(rows[1][0])
+
+
+# String SQL
+str_sql = "INSERT INTO tb_pf (cpf, nome) VALUES (95123785247, 'Foo');"
+
+
+# Executa o comando SQL
+cursor.execute(str_sql)
+
+
+# Verifique no banco se o registro foi inserido
+
+# Verifica se a conexão está fechada (0 = aberta, 1 = fechada)
+conexao.closed
+
+# Verifica se o cursor está fechado (booleano)
+cursor.closed
+
+# Efetiva todos os comandos dados na conexão
+conexao.commit()
+
+# Fecha a conexão
+conexao.close()
+
+# Checa se a conexão está fechada
+conexao.closed
+
+# Checa se o cursor está fechado
+cursor.closed
+
+# Fazer uma nova conexão
+try:
+    # Conexão ao banco
+    conexao = psycopg2.connect(str_conexao)
+
+except Exception as e:
+    # Exibe a string abaixo e também a mensagem de Exception
+    print('Erro de conexão!\n\n{}'.format(e))
+
+# Determina que a conexão não será transacional
+conexao.set_session(readonly=False, autocommit=True)
+
+# Criação de um novo cursor
+cursor = conexao.cursor()
+
+# String SQL
+str_sql = "INSERT INTO tb_pf (cpf, nome) VALUES (17223785247, 'Bar');"
+
+# Executa o comando SQL
+cursor.execute(str_sql)
+
+# Determina que a conexão será somente leitura
+conexao.set_session(readonly=True, autocommit=True)
+
+
+# String SQL
+str_sql = "INSERT INTO tb_pf (cpf, nome) VALUES (33223785247, 'Foo Bar');"
+
+
+# Executa o comando SQL
+cursor.execute(str_sql)
+```
 
 ---
