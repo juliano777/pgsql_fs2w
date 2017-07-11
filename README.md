@@ -1828,16 +1828,16 @@ tipo de elemento (chamado de subtipo de faixa).
 ### Simbologia de Limites de Intervalos
 
 * ( ) → Parênteses: para simbolizar respectivamente limites inicial e final do tipo aberto;
-* &#91; &#93; → Colchetes: representam respectivamente limites inicial e final do tipo fechado.
+* __bracket bracket__ → Colchetes: representam respectivamente limites inicial e final do tipo fechado.
 
 ### Built-in Range Types
 O PostgreSQL nativamente vem com os seguintes range types:
-• int4range: Inteiro de 4 bytes (int4, int, integer);
-• int8range: Inteiro de 8 bytes (int8, bigint);
-• numrange: Ponto flutuante (numeric);
-• tsrange: timestamp sem time zone;
-• tstzrange: timestamp com time zone;
-• daterange: Data (date)
+* int4range: Inteiro de 4 bytes (int4, int, integer);
+* int8range: Inteiro de 8 bytes (int8, bigint);
+* numrange: Ponto flutuante (numeric);
+* tsrange: timestamp sem time zone;
+* tstzrange: timestamp com time zone;
+* daterange: Data (date)
 
 Em adição, você pode definir seus próprios range types; veja CREATE TYPE para mais informações.
 
