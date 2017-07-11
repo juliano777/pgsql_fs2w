@@ -44,6 +44,7 @@ File &rarr; Import Appliance... &rarr; (localize o arquivo .ova) &rarr; Next &ra
 <a id="pg"></a><p />
 ## Sobre o PostgreSQL
 
+to do... ;)
 ---
 <a id="sql"></a><p />
 ## SQL
