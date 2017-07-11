@@ -1828,7 +1828,7 @@ tipo de elemento (chamado de subtipo de faixa).
 ### Simbologia de Limites de Intervalos
 
 * ( ) → Parênteses: para simbolizar respectivamente limites inicial e final do tipo aberto;
-* [ ] → Colchetes: representam respectivamente limites inicial e final do tipo fechado.
+* &#91; &#93; → Colchetes: representam respectivamente limites inicial e final do tipo fechado.
 
 ### Built-in Range Types
 O PostgreSQL nativamente vem com os seguintes range types:
@@ -1891,21 +1891,14 @@ SELECT 10 <@ int4range(10, 20);
 t
 </pre>
 
-133) ****
-```sql
-
-```
-<pre>
-</pre>
-
-134) **Para fixação dos conceitos aprendidos nos exercícios anteriores, agora vamos criar uma tabela de reservas:**
+133) **Para fixação dos conceitos aprendidos nos exercícios anteriores, agora vamos criar uma tabela de reservas:**
 ```sql
 CREATE TABLE tb_reserva(
     sala int PRIMARY KEY,
     duracao tsrange);
 ```
 
-135) **Populando a tabela:**
+134) **Populando a tabela:**
 ```sql
 INSERT INTO tb_reserva VALUES
     (1, '[2014-11-01 14:30, 2014-11-01 18:30)'),
@@ -1914,7 +1907,7 @@ INSERT INTO tb_reserva VALUES
     (4, '[2014-11-04 17:00, 2014-11-04 19:00)');
 ```
 
-136) **Verificando a tabela:**
+135) **Verificando a tabela:**
 ```sql
 TABLE tb_reserva;
 ```
@@ -1928,23 +1921,38 @@ sala  |                    duracao
 </pre>   
 
 
-
-
-
-
-
-
-
-
-
-
-Verificando se há alguma sala cuja data e hora esteja contida em alguma duração de reserva:
-
+136) **Verificando se há alguma sala cuja data e hora esteja contida em alguma duração de reserva:**
+```sql
 SELECT * FROM tb_reserva WHERE '2014-11-02 12:33'::timestamp <@ duracao;
-
-sala |                    duracao                    
+```
+<pre>
+sala  |                    duracao                    
 ------+-----------------------------------------------
-   2 | ["2014-11-02 11:00:00","2014-11-02 15:00:00")
+   2  | ["2014-11-02 11:00:00","2014-11-02 15:00:00")
+</pre>
+
+
+137) ****
+```sql
+
+```
+<pre>
+</pre>
+
+
+138) ****
+```sql
+
+```
+<pre>
+</pre>
+
+
+
+
+
+
+
 
 
 Verificando se há alguma sala cuja duração contém a data e hora informada:
