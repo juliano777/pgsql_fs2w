@@ -1218,7 +1218,7 @@ DETAIL:  Key (id)=(NN) is still referenced from table "tb_cidade".
 
 90) **Apagando os registros da tabela referenciadora:**
 ```sql
-DELETE FROM tb_cidade WHERE uf = 'NN';;
+DELETE FROM tb_cidade WHERE uf = 'NN';
 ```
 
 
