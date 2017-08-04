@@ -2228,8 +2228,8 @@ NOTICE:  Número de conexões não-locais ao banco: 10
 
 148) **Crie o diretório Python:**
 
-$ ```bash
-mkdir /var/lib/pgsql/python
+```bash
+\$ mkdir /var/lib/pgsql/python
 ```
 
 
