@@ -17,6 +17,7 @@
  * [**Range Types**](#range)
  * [**DOMAIN**](#domain)
  * [**Acessando o Postgres via Python (psycopg2)**](#python)
+ * [**PL/Python: Programando em Python no PostgreSQL**](#plpython)
 ---
 
 <a id="preparacao"></a>
@@ -2120,5 +2121,117 @@ str_sql = "INSERT INTO tb_pf (cpf, nome) VALUES (33223785247, 'Foo Bar');"
 # Executa o comando SQL
 cursor.execute(str_sql)
 ```
+
+---
+
+<a id="plpython"></a>
+## PL/Python: Programando em Python no PostgreSQL
+
+Sintaxe:
+
+```
+CREATE [OR REPLACE FUNCTION] funcao([params])
+RETURNS tipo AS $$
+. . .
+codigo
+. . .
+$$ LANGUAGE linguagem;
+```
+
+### PL/pgSQL
+
+
+142) **Criação da função fc_foo sem parâmetros:**
+```sql
+CREATE OR REPLACE FUNCTION fc_foo()
+RETURNS VARCHAR AS $$
+
+BEGIN
+    RETURN 'Hello, World!';
+END; $$ LANGUAGE PLPGSQL;
+```
+
+
+143) **Criação da função fc_foo com parâmetros:**
+```sql
+CREATE OR REPLACE FUNCTION fc_foo(num1 INT, num2 INT)
+RETURNS INT AS $$
+
+DECLARE res INT;
+
+BEGIN
+    RETURN (num1 + num2) * 2;
+END; $$ LANGUAGE PLPGSQL;
+```
+
+144) **Execução da função fc_foo sem parâmetros:**
+```sql
+SELECT fc_foo();
+```
+<pre>
+fc_foo     
+---------------
+Hello, World!
+</pre>
+
+145) **Execução da função fc_foo com parâmetros:**
+```sql
+SELECT fc_foo(2, 5);
+```
+<pre>
+fc_foo
+--------
+    14
+</pre>
+
+### Blocos Anônimos
+
+Sintaxe:
+
+```
+DO $$
+
+. . .
+codigo
+. . .
+$$ LANGUAGE linguagem;
+```
+
+146) **Ajustando o nível de mensagens para a aplicação cliente:**
+```sql
+SET client_min_messages = 'notice';
+```
+
+147) **Bloco anônimo para mostrar o número conexões ao banco no momento:**
+```sql
+DO $$
+DECLARE n_con INT;
+BEGIN
+    SELECT count(client_addr)
+        INTO n_con
+        FROM pg_stat_activity;
+
+    RAISE NOTICE
+        'Número de conexões não-locais ao banco: %',
+        n_con;
+
+END; $$ LANGUAGE PLPGSQL;
+```
+<pre>
+NOTICE:  Número de conexões não-locais ao banco: 10
+</pre>
+
+
+### PL/Python
+
+
+
+148) **Crie o diretório Python:**
+$```bash
+mkdir /var/lib/pgsql/python
+```
+
+
+
 
 ---
