@@ -2226,11 +2226,57 @@ NOTICE:  Número de conexões não-locais ao banco: 10
 
 
 
-148) **Crie o diretório Python:**
+148) **($) Crie o diretório Python para módulos:**
 
 ```bash
-\$ mkdir /var/lib/pgsql/python
+mkdir /var/lib/pgsql/python
 ```
+
+149) **($) Variável de ambiente Python no arquivo de perfil do usuário de
+sistema postgres:**
+
+```bash
+echo 'export PYTHONPATH="${PYTHONPATH}:/var/lib/pgsql/python' >> \
+~postgres/.bashrc
+```
+
+150) **($) Variável de ambiente Python no arquivo de perfil do usuário de
+sistema postgres:**
+
+```bash
+echo 'export PYTHONPATH="${PYTHONPATH}:/var/lib/pgsql/python' >> \
+~postgres/.bashrc
+```
+
+151) **(#) Podemos incluir a variável PYTHONPATH no Unit File SystemD do serviço
+do PostgreSQL:**
+
+```bash
+systemctl edit --full postgresql.service
+```
+
+Na sessão Unit, diretiva Environment do Unit File:
+
+```
+[Unit]
+. . .
+Environment=PYTHONPATH=/var/lib/pgsql/python
+```
+
+152) **(#) Reinicialize o serviço do PostgreSQL:**
+
+```bash
+systemctl restart postgresq.service
+```
+
+
+
+
+
+
+
+
+
 
 
 
