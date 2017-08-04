@@ -2269,6 +2269,138 @@ Environment=PYTHONPATH=/var/lib/pgsql/python
 systemctl restart postgresq.service
 ```
 
+153) **No psql, criar a base de dados de exemplo:**
+
+```sql
+CREATE DATABASE db_plpython;
+```
+
+154) **Conectar à base:**
+
+```
+\c db_plpython
+```
+
+155) **Habilitar PL/Python 3 na base de dados atual:**
+
+```sql
+CREATE EXTENSION plpython3u;
+```
+
+156) **Uma simples função anônima:**
+
+```sql
+DO $$                       
+import sys
+print(sys.version)
+$$ LANGUAGE PLPYTHON3U;
+```
+<pre>
+3.4.5 (default, May 29 2017, 15:17:55)
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-11)]
+</pre>
+
+
+157) **Função em PL/Python 3 sem argumentos:**
+
+```sql
+CREATE OR REPLACE FUNCTION fc_py()
+RETURNS VARCHAR AS $$
+
+return 'Hello, World!!!'
+
+$$ LANGUAGE plpython3u;
+```
+
+158) **Sobrecarga de função:**
+
+```sql
+CREATE OR REPLACE FUNCTION fc_py(num1 INT, num2 INT)
+RETURNS INT AS $$
+
+return num1 + num2
+$$ LANGUAGE plpython3u;
+```
+
+159) **Testando a primeira função criada:**
+
+```sql
+SELECT fc_py();
+```
+
+<pre>
+fc_py      
+-----------------
+Hello, World!!!
+</pre>
+
+160) **Testando a segunda função criada:**
+
+```sql
+SELECT fc_py(2, 5);
+```
+
+<pre>
+fc_py
+-------
+    7
+</pre>
+
+
+161) **($) Criação do módulo teste dentro do diretório que está em PYTHONPATH:**
+
+```bash
+cat << EOF > /var/lib/pgsql/python/teste.py
+def py_version():
+    import sys
+    return sys.version.split()[0]
+EOF
+```
+
+162) **($) Conexão ao banco via psql:**
+
+```bash
+psql db_plpython
+```
+
+163) **Criação da função seguindo as boas práticas:**
+
+```sql
+CREATE OR REPLACE FUNCTION fc_py_version()
+RETURNS VARCHAR AS $$
+
+from teste import py_version
+return py_version()
+
+$$ LANGUAGE plpython3u;
+```
+
+164) **Teste da função:**
+
+```sql
+SELECT 'Minha versão de Python é: '|| fc_py_version()
+    AS "Versão de Python";
+```
+<pre>
+Versão de Python         
+---------------------------------
+Minha versão de Python é: 3.4.5
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
