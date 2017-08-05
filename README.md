@@ -1078,7 +1078,7 @@ HINT:  Use DROP ... CASCADE to drop the dependent objects too.
 
 
 
-83) **Descrição da estratura de tb_uf:**
+83) **Descrição da estrutura de tb_uf:**
 ```sql
 \d tb_uf
 ```
@@ -1099,7 +1099,7 @@ Referenced by:
 
 
 
-83) **Descrição da estratura de tb_cidade:**
+83) **Descrição da estrutura de tb_cidade:**
 ```sql
 \d tb_cidade
 ```
@@ -1417,7 +1417,7 @@ CREATE TEMP TABLE tb_carro(
 ```
 
 
-103) **Criação da tabela de cares:**
+103) **Criação da tabela de cores:**
 ```sql
 CREATE TEMP TABLE tb_cor(
     id serial PRIMARY KEY,
@@ -1435,7 +1435,7 @@ INSERT INTO tb_carro (nome) VALUES
 ```
 
 
-105) **Popular a tabela de cares:**
+105) **Popular a tabela de cores:**
 ```sql
 INSERT INTO tb_cor (nome) VALUES
     ('Verde'),
@@ -1506,7 +1506,7 @@ definições de relacionamento. Existe uma ligação lógica para se fazer a jun
 declarada explicitamente.<br />
 É a junção padrão, que faz com que inclusive a palavra-chave INNER possa ser
 omitida.<br />
-Para o critério de junção pode-se usar a cláusula ON que especifca qual a condição
+Para o critério de junção pode-se usar a cláusula ON que especifica qual a condição
 usada ou USING que apenas diz qual campo com o mesmo nome em ambas as tabelas
 deve ser utilizado.
 
