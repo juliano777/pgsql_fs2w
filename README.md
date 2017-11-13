@@ -82,7 +82,7 @@ SELECT 'Um exemplo de string' AS apelido;
  </pre>
 
 
- 3)  **Um SELECT simples com alias contendo espaços retornando uma string:**
+3)  **Um SELECT simples com alias contendo espaços retornando uma string:**
 ```sql
 SELECT 'Um exemplo de string' AS "apelido com espaço";
 ```
@@ -93,7 +93,7 @@ SELECT 'Um exemplo de string' AS "apelido com espaço";
  </pre>
 
 
- 4)  **Soma de dois números:**
+4)  **Soma de dois números:**
 ```sql
 SELECT 5 + 2;
 ```
@@ -104,7 +104,7 @@ SELECT 5 + 2;
  </pre>
 
 
- 5)  **Soma de dois números e alias:**
+5)  **Soma de dois números e alias:**
 ```sql
 SELECT 5 + 2 AS resultado;
 ```
@@ -115,7 +115,7 @@ SELECT 5 + 2 AS resultado;
  </pre>
 
 
- 6)  **Concatenação e conversão para data:**
+6)  **Concatenação e conversão para data:**
 ```sql
 SELECT 'Hoje é ' || now()::date AS "Concatenação e cast para date";
 ```
@@ -126,7 +126,7 @@ SELECT 'Hoje é ' || now()::date AS "Concatenação e cast para date";
  </pre>
 
 
- 7)  **Concatenação e conversão para hora:**
+7)  **Concatenação e conversão para hora:**
 ```sql
 SELECT 'Agora são ' || now()::time(0) AS "Concatenação e cast para time";
 ```
@@ -472,7 +472,7 @@ CREATE SCHEMA sc_teste;
 
 
 
- 35)  **Listando os schemas:**
+35)  **Listando os schemas:**
 ```sql
 SELECT nspname AS schema FROM pg_namespace;
 ```
@@ -545,21 +545,21 @@ SELECT schema || '.' || tabela AS "Tabela com namespace" FROM vw_tabelas;
 
 
 
-40)  **Apagando as tabelas criadas:**
+41)  **Apagando as tabelas criadas:**
 ```sql
 DROP TABLE public.tb_prod, public.tb_foo, sc_teste.tb_foo;
 ```
 
 
 
-41)  **Apagando a view criada:**
+42)  **Apagando a view criada:**
 ```sql
 DROP VIEW vw_tabelas;
 ```
 
 
 
-42)  **Apagando o schema criado:**
+43)  **Apagando o schema criado:**
 ```sql
 DROP SCHEMA sc_teste;
 ```
@@ -579,7 +579,7 @@ Fazendo uma analogia, em linguagens de programação temos o conceito de **CRUD*
 | *Delete* (apagar)      | DELETE |
 
 
-43) **Criação de tabela de teste:**
+44) **Criação de tabela de teste:**
 ```sql
 CREATE TABLE tb_teste(
     id serial PRIMARY KEY,
@@ -589,7 +589,7 @@ CREATE TABLE tb_teste(
 
 
 
-44) **Verificando a estrutura da tabela:**
+45) **Verificando a estrutura da tabela:**
 ```sql
 \d tb_teste
 ```
@@ -605,14 +605,14 @@ Indexes:
 </pre>
 
 
-45) **Inserir um registro:**
+46) **Inserir um registro:**
 ```sql
 INSERT INTO tb_teste (campo1, campo2) VALUES ('foo', 25);
 ```
 
 
 
-46) **Veriricar o valor atual da sequence:**
+47) **Veriricar o valor atual da sequence:**
 ```sql
 SELECT currval('tb_teste_id_seq');
 ```
@@ -624,14 +624,14 @@ SELECT currval('tb_teste_id_seq');
 
 
 
-47) **Inserir valores:**
+48) **Inserir valores:**
 ```sql
 INSERT INTO tb_teste VALUES (2, 'bar', (random() * 100)::int);
 ```
 
 
 
-48) **Veriricar o valor atual da sequence:**
+49) **Veriricar o valor atual da sequence:**
 ```sql
 SELECT currval('tb_teste_id_seq');
 ```
@@ -643,7 +643,7 @@ SELECT currval('tb_teste_id_seq');
 
 
 
-49) **INSERT múltiplo:**
+50) **INSERT múltiplo:**
 ```sql
 INSERT INTO tb_teste (campo1, campo2) VALUES
     ('spam', 58),
@@ -659,7 +659,7 @@ DETAIL:  Key (id)=(2) already exists.
 
 
 
-50) **Veriricar o valor atual da sequence:**
+51) **Veriricar o valor atual da sequence:**
 ```sql
 SELECT currval('tb_teste_id_seq');
 ```
@@ -671,7 +671,7 @@ SELECT currval('tb_teste_id_seq');
 
 
 
-51) **INSERT múltiplo:**
+52) **INSERT múltiplo:**
 ```sql
 INSERT INTO tb_teste (campo1, campo2) VALUES
     ('spam', 58),
@@ -683,7 +683,7 @@ INSERT INTO tb_teste (campo1, campo2) VALUES
 
 
 
-52) **INSERT com SELECT:**
+53) **INSERT com SELECT:**
 ```sql
 INSERT INTO tb_teste (campo1, campo2)
     SELECT 'string', 77;
@@ -691,7 +691,7 @@ INSERT INTO tb_teste (campo1, campo2)
 
 
 
-53) **Comando TABLE para selecionar todos os registros e todas as colunas:**
+54) **Comando TABLE para selecionar todos os registros e todas as colunas:**
 ```sql
 TABLE tb_teste;
 ```
@@ -710,7 +710,7 @@ TABLE tb_teste;
 
 
 
-54) **Selecionar todos os registros e todas as colunas:**
+55) **Selecionar todos os registros e todas as colunas:**
 ```sql
 SELECT * FROM tb_teste;
 ```
@@ -729,7 +729,7 @@ SELECT * FROM tb_teste;
 
 
 
-55) **Explicitar campos e filtrar por valores de id maior ou igual a 5:**
+56) **Explicitar campos e filtrar por valores de id maior ou igual a 5:**
 ```sql
 SELECT id, campo2, campo1 FROM tb_teste WHERE id >= 5;
 ```
@@ -744,21 +744,21 @@ SELECT id, campo2, campo1 FROM tb_teste WHERE id >= 5;
 
 
 
-56) **Iniciar uma transação:**
+57) **Iniciar uma transação:**
 ```sql
 BEGIN;
 ```
 
 
 
-57) **UPDATE sem WHERE:**
+58) **UPDATE sem WHERE:**
 ```sql
 UPDATE tb_teste SET campo2 = 100;
 ```
 
 
 
-58) **Comando TABLE:**
+59) **Comando TABLE:**
 ```sql
 TABLE tb_teste;
 ```
@@ -777,14 +777,14 @@ TABLE tb_teste;
 
 
 
-59) **ROLLBACK na transação:**
+60) **ROLLBACK na transação:**
 ```sql
 ROLLBACK;
 ```
 
 
 
-60) **Comando TABLE:**
+61) **Comando TABLE:**
 ```sql
 TABLE tb_teste;
 ```
@@ -803,14 +803,14 @@ TABLE tb_teste;
 
 
 
-61) **UPDATE com WHERE:**
+62) **UPDATE com WHERE:**
 ```sql
 UPDATE tb_teste SET campo2 = 100 WHERE id = 2;
 ```
 
 
 
-62) **UPDATE com a cláusula BETWEEN e RETURNING:**
+63) **UPDATE com a cláusula BETWEEN e RETURNING:**
 ```sql
 UPDATE tb_teste SET (campo1, campo2) = (NULL, 404)
     WHERE id BETWEEN 5 AND 9
@@ -827,14 +827,14 @@ UPDATE tb_teste SET (campo1, campo2) = (NULL, 404)
 
 
 
-63) **Apagar todos registros onde o campo1 for NULL:**
+64) **Apagar todos registros onde o campo1 for NULL:**
 ```sql
 DELETE FROM tb_teste WHERE campo1 IS NULL;
 ```
 
 
 
-64) **DELETE com RETURNING:**
+65) **DELETE com RETURNING:**
 ```sql
 DELETE FROM tb_teste WHERE id = 4 RETURNING campo1, campo2;
 ```
@@ -846,27 +846,27 @@ DELETE FROM tb_teste WHERE id = 4 RETURNING campo1, campo2;
 
 
 
-65) **Apagar a tabela de teste:**
+66) **Apagar a tabela de teste:**
 ```sql
 DROP TABLE tb_teste;
 ```
 
 
 
-66) **Criar a tabela de teste baseada em uma consulta:**
+67) **Criar a tabela de teste baseada em uma consulta:**
 ```sql
 CREATE TABLE tb_teste AS SELECT generate_series(1, 2000000);
 ```
 
 
-67) **Habilitar o cronômetro do psql:**
+68) **Habilitar o cronômetro do psql:**
 ```sql
 \timing
 ```
 
 
 
-68) **DELETE sem WHERE:**
+69) **DELETE sem WHERE:**
 ```sql
 DELETE FROM tb_teste;
 ```
@@ -876,21 +876,21 @@ Time: 8252,219 ms
 
 
 
-69) **Apagar a tabela de teste:**
+70) **Apagar a tabela de teste:**
 ```sql
 DROP TABLE tb_teste;
 ```
 
 
 
-70) **Criar a tabela de teste baseada em uma consulta:**
+71) **Criar a tabela de teste baseada em uma consulta:**
 ```sql
 CREATE TABLE tb_teste AS SELECT generate_series(1, 2000000);
 ```
 
 
 
-71) **TRUNCATE na tabela:**
+72) **TRUNCATE na tabela:**
 ```sql
 TRUNCATE tb_teste;
 ```
@@ -900,14 +900,14 @@ Time: 37,142 ms
 
 
 
-72) **Inserir valores através da função generate_series:**
+73) **Inserir valores através da função generate_series:**
 ```sql
 INSERT INTO tb_teste SELECT generate_series(1, 20);
 ```
 
 
 
-73) **Veriricar a tabela:**
+74) **Veriricar a tabela:**
 ```sql
 TABLE tb_teste;
 ```
@@ -938,7 +938,7 @@ TABLE tb_teste;
 
 
 
-74) **Limitar a 5 registros a serem exibidos:**
+75) **Limitar a 5 registros a serem exibidos:**
 ```sql
 SELECT * FROM tb_teste LIMIT 5;
 ```
@@ -954,7 +954,7 @@ SELECT * FROM tb_teste LIMIT 5;
 
 
 
-75) **Limitar a 5 registros a serem exibidos em ordem decrescente:**
+76) **Limitar a 5 registros a serem exibidos em ordem decrescente:**
 ```sql
 SELECT generate_series FROM tb_teste ORDER BY generate_series DESC LIMIT 5;
 ```
@@ -970,7 +970,7 @@ SELECT generate_series FROM tb_teste ORDER BY generate_series DESC LIMIT 5;
 
 
 
-76) **Não exibir 15 registros:**
+77) **Não exibir 15 registros:**
 ```sql
 SELECT generate_series FROM tb_teste OFFSET 15;
 ```
@@ -986,7 +986,7 @@ SELECT generate_series FROM tb_teste OFFSET 15;
 
 
 
-77) **Paginação de 5 em 5:**
+78) **Paginação de 5 em 5:**
 ```sql
 SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 0;
 ```
@@ -1002,7 +1002,7 @@ SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 0;
 
 
 
-78) **Paginação de 5 em 5:**
+79) **Paginação de 5 em 5:**
 ```sql
 SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 5;
 ```
@@ -1018,7 +1018,7 @@ SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 5;
 
 
 
-79) **Paginação de 5 em 5:**
+80) **Paginação de 5 em 5:**
 ```sql
 SELECT generate_series FROM tb_teste LIMIT 5 OFFSET 10;
 ```
@@ -1044,7 +1044,7 @@ coluna da tabela referenciada.
 Os valores dos campos referenciados devem ser únicos. Chamamos isso de
 integridade referencial.<br />
 
-80) **Criação da Tabela tb_uf:**
+81) **Criação da Tabela tb_uf:**
 ```sql
 CREATE TEMP TABLE tb_uf(
     id char(2) PRIMARY KEY,
@@ -1054,7 +1054,7 @@ CREATE TEMP TABLE tb_uf(
 
 
 
-81) **Criação da Tabela tb_cidade:**
+82) **Criação da Tabela tb_cidade:**
 ```sql
 CREATE TEMP TABLE tb_cidade(
     id serial PRIMARY KEY,
@@ -1065,7 +1065,7 @@ CREATE TEMP TABLE tb_cidade(
 
 
 
-82) **Tentativa de exclusão da tabela referenciada:**
+83) **Tentativa de exclusão da tabela referenciada:**
 ```sql
 DROP TABLE tb_uf;
 ```
@@ -1078,7 +1078,7 @@ HINT:  Use DROP ... CASCADE to drop the dependent objects too.
 
 
 
-83) **Descrição da estrutura de tb_uf:**
+84) **Descrição da estrutura de tb_uf:**
 ```sql
 \d tb_uf
 ```
@@ -1099,7 +1099,7 @@ Referenced by:
 
 
 
-83) **Descrição da estrutura de tb_cidade:**
+85) **Descrição da estrutura de tb_cidade:**
 ```sql
 \d tb_cidade
 ```
@@ -1119,7 +1119,7 @@ Foreign-key constraints:
 
 
 
-84) **Comando COPY para popular a tabela:**
+86) **Comando COPY para popular a tabela:**
 ```sql
 COPY tb_uf (id, nome) FROM STDIN DELIMITER ',';
 ```
@@ -1165,7 +1165,7 @@ PB,PARAIBA
 Dê &lt;ENTER&gt; e logo em seguida &lt;Ctrl&gt; + &lt;D&gt;.
 
 
-85) **Inserir valores para a tabela tb_cidade:**
+87) **Inserir valores para a tabela tb_cidade:**
 ```sql
 INSERT INTO tb_cidade (nome, uf) VALUES
     ('São Paulo', 'SP'),
@@ -1176,7 +1176,7 @@ INSERT INTO tb_cidade (nome, uf) VALUES
 
 
 
-86) **Tentativa de inserir valores cuja chave estrangeira não existe na tabela referenciada:**
+88) **Tentativa de inserir valores cuja chave estrangeira não existe na tabela referenciada:**
 ```sql
 INSERT INTO tb_cidade (nome, uf) VALUES
     ('foo', 'NN'),
@@ -1189,14 +1189,14 @@ DETAIL:  Key (uf)=(NN) is not present in table "tb_uf".
 
 
 
-87) **Inserir um registro novo em tb_uf para possibilitar o INSERT anterior:**
+89) **Inserir um registro novo em tb_uf para possibilitar o INSERT anterior:**
 ```sql
 INSERT INTO tb_uf (id, nome) VALUES ('NN', '...');
 ```
 
 
 
-88) **Inserir valores novos em tb_cidade:**
+90) **Inserir valores novos em tb_cidade:**
 ```sql
 INSERT INTO tb_cidade (nome, uf) VALUES
     ('foo', 'NN'),
@@ -1205,7 +1205,7 @@ INSERT INTO tb_cidade (nome, uf) VALUES
 
 
 
-89) **Tentativa de apagar o registro da tabela referenciada:**
+91) **Tentativa de apagar o registro da tabela referenciada:**
 ```sql
 DELETE FROM tb_uf WHERE id = 'NN';
 ```
@@ -1216,21 +1216,21 @@ DETAIL:  Key (id)=(NN) is still referenced from table "tb_cidade".
 
 
 
-90) **Apagando os registros da tabela referenciadora:**
+92) **Apagando os registros da tabela referenciadora:**
 ```sql
 DELETE FROM tb_cidade WHERE uf = 'NN';
 ```
 
 
 
-91) **Tentativa de apagar o registro da tabela referenciada:**
+93) **Tentativa de apagar o registro da tabela referenciada:**
 ```sql
 DELETE FROM tb_uf WHERE id = 'NN';
 ```
 
 
 
-92) **Apagando a tabela referenciada em modo cascata:**
+94) **Apagando a tabela referenciada em modo cascata:**
 ```sql
 DROP TABLE tb_uf CASCADE;
 ```
@@ -1240,7 +1240,7 @@ NOTICE:  drop cascades to constraint tb_cidade_uf_fkey on table tb_cidade
 
 
 
-92) **Verificando a estrutura da tabela tb_cidade:**
+95) **Verificando a estrutura da tabela tb_cidade:**
 ```sql
 \d tb_cidade
 ```
@@ -1264,7 +1264,7 @@ Também conhecidas como subqueries, são SELECTs embutidos dentro de outro
 SELECT que têm por finalidade flexibilizar consultas. Esse recurso está disponível no
 PostgreSQL desde a versão 6.3.
 
-93) **Clonar o repositório db_empresa para os próximos exercícios:**
+96) **Clonar o repositório db_empresa para os próximos exercícios:**
 ```bash
 git clone https://github.com/juliano777/db_empresa.git
 ```
@@ -1272,33 +1272,33 @@ git clone https://github.com/juliano777/db_empresa.git
 
 
 
-94) **Entrar no diretório db_empresa:**
+97) **Entrar no diretório db_empresa:**
 ```bash
 cd db_empresa/
 ```
 
 
 
-95) **Criar a estrutura da base de dados db_empresa:**
+98) **Criar a estrutura da base de dados db_empresa:**
 ```bash
 psql -f db_empresa-schema.sql
 ```
 
 
 
-95) **Carregar os dados da base db_empresa:**
+99) **Carregar os dados da base db_empresa:**
 ```bash
 psql -f db_empresa-data.sql db_empresa
 ```
 
 
-96) **Via shell, pelo psql se conectar na base:**
+100) **Via shell, pelo psql se conectar na base:**
 ```bash
 psql db_empresa
 ```
 
 
-97) **Exibir os CPFs dos colaboradores cujo salário seja maior do que média com 90% de acréscimo:**
+101) **Exibir os CPFs dos colaboradores cujo salário seja maior do que média com 90% de acréscimo:**
 ```sql
 SELECT c1.cpf
     FROM tb_colaborador c1
@@ -1315,7 +1315,7 @@ cpf
 
 
 
-98) **Exibir o CPF e a diferença do salário relativa à média:**
+102) **Exibir o CPF e a diferença do salário relativa à média:**
 ```sql
 SELECT c1.cpf "CPF", c1.salario -
     (SELECT avg(c2.salario) FROM tb_colaborador c2)::numeric(7, 2)
@@ -1335,7 +1335,7 @@ CPF          | Diferença da Média
 
 
 
-99) **Selecionar id de tb_colaborador onde o cpf não está entre os valores retornados da
+103) **Selecionar id de tb_colaborador onde o cpf não está entre os valores retornados da
 subconsulta e o setor deve ser igual a 3:**
 ```sql
 SELECT c.id
@@ -1364,7 +1364,7 @@ id
 A cláusula WITH fornece uma maneira de escrever comandos auxiliares para uso em uma consulta maior. Esses comandos, que são frequentemente referenciados como Common Table Expressions ou CTEs, pode ser pensado como a definição de tabelas temporárias que existem apenas para uma consulta.<br />
 Cada comando auxiliar em uma cláusula WITH pode ser um SELECT, INSERT, UPDATE, ou DELETE; e a cláusula WITH por si só é anexada a um comando principal que pode também ser um SELECT, INSERT, UPDATE, ou DELETE.
 
-100) **Exibir os CPFs dos colaboradores cujo salário seja maior do que média com 90% de acréscimo:**
+104) **Exibir os CPFs dos colaboradores cujo salário seja maior do que média com 90% de acréscimo:**
 ```sql
 WITH c2 AS (SELECT (avg(salario) * 1.9) AS media FROM tb_colaborador)
     SELECT c1.cpf
@@ -1381,7 +1381,7 @@ cpf
 
 
 
-101) **Exibir o CPF e a diferença do salário relativa à média:**
+105) **Exibir o CPF e a diferença do salário relativa à média:**
 ```sql
 WITH c2 AS (SELECT avg(salario)::numeric(7, 2) media
             FROM tb_colaborador)
@@ -1409,7 +1409,7 @@ CPF          | Diferença da Média
 Retorna um conjunto de informações o qual é resultante de todas as combinações
 possíveis entre os registros das tabelas envolvidas.
 
-102) **Criação da tabela de carros:**
+106) **Criação da tabela de carros:**
 ```sql
 CREATE TEMP TABLE tb_carro(
     id serial PRIMARY KEY,
@@ -1417,7 +1417,7 @@ CREATE TEMP TABLE tb_carro(
 ```
 
 
-103) **Criação da tabela de cores:**
+107) **Criação da tabela de cores:**
 ```sql
 CREATE TEMP TABLE tb_cor(
     id serial PRIMARY KEY,
@@ -1425,7 +1425,7 @@ CREATE TEMP TABLE tb_cor(
 ```
 
 
-104) **Popular a tabela de carros:**
+108) **Popular a tabela de carros:**
 ```sql
 INSERT INTO tb_carro (nome) VALUES
     ('Fiat 147'),
@@ -1435,7 +1435,7 @@ INSERT INTO tb_carro (nome) VALUES
 ```
 
 
-105) **Popular a tabela de cores:**
+109) **Popular a tabela de cores:**
 ```sql
 INSERT INTO tb_cor (nome) VALUES
     ('Verde'),
@@ -1450,7 +1450,7 @@ INSERT INTO tb_cor (nome) VALUES
 
 
 
-106) **Duas formas diferentes para fazer junção cruzada para obter as combinações possíveis exibindo somente os primeiros 5 registros:**
+110) **Duas formas diferentes para fazer junção cruzada para obter as combinações possíveis exibindo somente os primeiros 5 registros:**
 ```sql
 SELECT c1.nome carro, c2.nome cor
     FROM tb_carro c1, tb_cor c2
@@ -1483,7 +1483,7 @@ tabelas envolvidas.<br />
 essa última explicita qual é o critério de vínculo entre tabelas deixando a leitura mais
 amigável.
 
-107) **Duas formas diferentes para fazer junção cruzada para obter as combinações possíveis exibindo somente os primeiros 5 registros:**
+111) **Duas formas diferentes para fazer junção cruzada para obter as combinações possíveis exibindo somente os primeiros 5 registros:**
 ```sql
 SELECT p.nome, p.sobrenome, c.salario
     FROM tb_colaborador c
@@ -1510,7 +1510,7 @@ Para o critério de junção pode-se usar a cláusula ON que especifica qual a c
 usada ou USING que apenas diz qual campo com o mesmo nome em ambas as tabelas
 deve ser utilizado.
 
-108) **INNER JOINs com ON e USING:**
+112) **INNER JOINs com ON e USING:**
 ```sql
 SELECT p.nome, p.sobrenome, c.salario
     FROM tb_colaborador c
@@ -1548,7 +1548,7 @@ as informações que satisfaçam a regra da junção. OUTER JOINs podem ser dos 
 Para os exercícios serão inseridos dados na tabela tb_pf, que não tenham
 correspondência na tabela tb_colaborador.
 
-109) **Inserir valores para os testes:**
+113) **Inserir valores para os testes:**
 ```sql
 INSERT INTO tb_pf VALUES
     ('Elzinda', '1979-05-03', NULL, '10293847567', '2233551177', 'Ambrózio',
@@ -1561,7 +1561,7 @@ INSERT INTO tb_pf VALUES
 
 ### LEFT OUTER JOIN
 
-110) **Tabela tb_pf à esquerda:**
+114) **Tabela tb_pf à esquerda:**
 ```sql
 SELECT p.nome||' '||p.sobrenome "Nome Completo", c.id
     FROM tb_pf p
@@ -1585,7 +1585,7 @@ Sizorfino Chagas    |
 
 ### RIGHT OUTER JOIN
 
-111) **Tabela tb_pf à direita:**
+115) **Tabela tb_pf à direita:**
 ```sql
 SELECT p.nome||' '||p.sobrenome "Nome Completo", c.id
     FROM tb_colaborador c
@@ -1608,7 +1608,7 @@ Sizorfino Chagas    |
 
 ### FULL OUTER JOIN
 
-112) **FULL OUTER JOIN:**
+116) **FULL OUTER JOIN:**
 ```sql
 SELECT p.nome||' '||p.sobrenome "Nome Completo", c.id
     FROM tb_pf p
@@ -1670,7 +1670,7 @@ conforme a consulta;
 isso.
 
 
-113) **Criação de tabela de teste:**
+117) **Criação de tabela de teste:**
 ```sql
 SELECT
     generate_series(1, 20000)::int2 AS campo1, -- 20 mil registros
@@ -1678,7 +1678,7 @@ SELECT
     round((random()*10000))::int2 AS campo3 INTO tb_index;
 ```
 
-114) **Verificando o plano de execução:**
+118) **Verificando o plano de execução:**
 ```sql
 EXPLAIN ANALYZE
 SELECT campo1 FROM tb_index WHERE campo2 BETWEEN 235 AND 587;
@@ -1694,12 +1694,12 @@ Execution time: 10.245 ms
 </pre>
 
 
-115) **Criação de índice:**
+119) **Criação de índice:**
 ```sql
 CREATE INDEX idx_tb_index_campo2 ON tb_index (campo2);
 ```
 
-116) **Verificando o plano de execução:**
+120) **Verificando o plano de execução:**
 ```sql
 EXPLAIN ANALYZE
 SELECT campo1 FROM tb_index WHERE campo2 BETWEEN 235 AND 587;
@@ -1716,12 +1716,12 @@ Planning time: 0.363 ms
 Execution time: 1.073 ms
 </pre>
 
-117) **Criação de índice composto:**
+121) **Criação de índice composto:**
 ```sql
 CREATE INDEX idx_tb_index_campo2_campo3 ON tb_index (campo2, campo3);
 ```
 
-118) **Verificando o plano de consulta:**
+122) **Verificando o plano de consulta:**
 ```sql
 EXPLAIN ANALYZE
 SELECT campo1 FROM tb_index
@@ -1736,22 +1736,22 @@ Planning time: 0.414 ms
 Execution time: 0.227 ms
 </pre>
 
-119) **Apagando a tabela do exercício anterior:**
+123) **Apagando a tabela do exercício anterior:**
 ```sql
 DROP TABLE tb_index;
 ```
 
-120) **Criação da Tabela de Teste (Não Temporária):**
+124) **Criação da Tabela de Teste (Não Temporária):**
 ```sql
 CREATE TABLE tb_index(campo1 int);
 ```
 
-121) **Inserção de 1 Milhão de Registros:**
+125) **Inserção de 1 Milhão de Registros:**
 ```sql
 INSERT INTO tb_index SELECT generate_series(1, 1000000);
 ```
 
-122) **Análise sem Índices de Valores Múltiplos de 19:**
+126) **Análise sem Índices de Valores Múltiplos de 19:**
 ```sql
 EXPLAIN ANALYZE
 SELECT * FROM tb_index WHERE campo1 % 19 = 0;
@@ -1767,13 +1767,13 @@ Execution time: 311.717 ms
 </pre>
 
 
-123) **Criação de Índice Total:**
+127) **Criação de Índice Total:**
 ```sql
 CREATE INDEX idx_teste_index_total ON tb_index (campo1);
 ```
 
 
-124) **Verifica o plano de execução:**
+128) **Verifica o plano de execução:**
 ```sql
 EXPLAIN ANALYZE
 SELECT * FROM tb_index WHERE campo1 % 19 = 0;
@@ -1788,12 +1788,12 @@ Planning time: 0.271 ms
 Execution time: 315.805 ms
 </pre>
 
-125) **Criação de índice parcial múltiplos de 19:**
+129) **Criação de índice parcial múltiplos de 19:**
 ```sql
 CREATE INDEX idx_teste_index_19 ON tb_index (campo1) WHERE campo1 % 19 = 0;
 ```
 
-126) **Análise com valores múltiplos de 19:**
+130) **Análise com valores múltiplos de 19:**
 ```sql
 EXPLAIN ANALYZE
 SELECT * FROM tb_index WHERE campo1 % 19 = 0;
@@ -1808,7 +1808,7 @@ Execution time: 40.926 ms
 </pre>
 
 
-127) **Análise com uma consulta de condição diferente de números divíveis por 19:**
+131) **Análise com uma consulta de condição diferente de números divíveis por 19:**
 ```sql
 EXPLAIN ANALYZE
 SELECT * FROM tb_index WHERE campo1 BETWEEN 241 AND 875;
@@ -1845,7 +1845,7 @@ O PostgreSQL nativamente vem com os seguintes range types:
 
 Em adição, você pode definir seus próprios range types; veja CREATE TYPE para mais informações.
 
-128) **Intervalo fechado de 2 a 9 (int4):**
+132) **Intervalo fechado de 2 a 9 (int4):**
 ```sql
 SELECT '[2, 9]'::int4range;
 ```
@@ -1855,7 +1855,7 @@ int4range
 [2,10)
 </pre>
 
-129) **Intervalo aberto em 2 e fechado em 9 (int4):**
+133) **Intervalo aberto em 2 e fechado em 9 (int4):**
 ```sql
 SELECT '(2, 9]'::int4range;
 ```
@@ -1865,7 +1865,7 @@ int4range
 [3,10)
 </pre>
 
-130) **Intervalos fechados usando data:**
+134) **Intervalos fechados usando data:**
 ```sql
 SELECT '[2017-07-15 09:00, 2017-07-15 14:00]'::tsrange;
 ```
@@ -1875,7 +1875,7 @@ tsrange
 ["2017-07-15 09:00:00","2017-07-15 14:00:00"]
 </pre>
 
-131) **No intervalo de 10 a 20 contém 3 (função int4range)?**
+135) **No intervalo de 10 a 20 contém 3 (função int4range)?**
 ```sql
 SELECT int4range(10, 20) @> 3;
 ```
@@ -1885,7 +1885,7 @@ SELECT int4range(10, 20) @> 3;
  f
 </pre>
 
-132) **O valor 10 está contido entre 10 e 20 (função int4range)?**
+136) **O valor 10 está contido entre 10 e 20 (função int4range)?**
 ```sql
 SELECT 10 <@ int4range(10, 20);
 ```
@@ -1895,14 +1895,14 @@ SELECT 10 <@ int4range(10, 20);
 t
 </pre>
 
-133) **Para fixação dos conceitos aprendidos nos exercícios anteriores, agora vamos criar uma tabela de reservas:**
+137) **Para fixação dos conceitos aprendidos nos exercícios anteriores, agora vamos criar uma tabela de reservas:**
 ```sql
 CREATE TABLE tb_reserva(
     sala int PRIMARY KEY,
     duracao tsrange);
 ```
 
-134) **Populando a tabela:**
+138) **Populando a tabela:**
 ```sql
 INSERT INTO tb_reserva VALUES
     (1, '[2014-11-01 14:30, 2014-11-01 18:30)'),
@@ -1911,7 +1911,7 @@ INSERT INTO tb_reserva VALUES
     (4, '[2014-11-04 17:00, 2014-11-04 19:00)');
 ```
 
-135) **Verificando a tabela:**
+139) **Verificando a tabela:**
 ```sql
 TABLE tb_reserva;
 ```
@@ -1925,7 +1925,7 @@ sala  |                    duracao
 </pre>   
 
 
-136) **Verificando se há alguma sala cuja data e hora esteja contida em alguma duração de reserva:**
+140) **Verificando se há alguma sala cuja data e hora esteja contida em alguma duração de reserva:**
 ```sql
 SELECT * FROM tb_reserva WHERE '2014-11-02 12:33'::timestamp <@ duracao;
 ```
@@ -1936,7 +1936,7 @@ sala  |                    duracao
 </pre>
 
 
-137) **Verificando se há alguma sala cuja duração contém a data e hora informada:**
+141) **Verificando se há alguma sala cuja duração contém a data e hora informada:**
 ```sql
 SELECT * FROM tb_reserva WHERE duracao @> '2014-11-03 14:21'::timestamp;
 ```
@@ -1953,7 +1953,7 @@ sala  |                    duracao
 Domínio é um tipo de dado personalizado em que se pode definir como os dados
 serão inseridos de acordo com restrições definidas opcionalmente.
 
-138) **Criação de um domínio, para validar CEPs que aceita inteiros com sete ou oito dígitos:**
+142) **Criação de um domínio, para validar CEPs que aceita inteiros com sete ou oito dígitos:**
 ```sql
 CREATE DOMAIN dom_cep AS integer
     CONSTRAINT chk_cep
@@ -1961,7 +1961,7 @@ CREATE DOMAIN dom_cep AS integer
         OR length(VALUE::text) = 8);
 ```
 
-139) **Criação de uma tabela que usará o domínio criado como tipo de dado para uma coluna:**
+143) **Criação de uma tabela que usará o domínio criado como tipo de dado para uma coluna:**
 ```sql
 CREATE TEMP TABLE tb_endereco_tmp(
     id serial PRIMARY KEY,
@@ -1973,7 +1973,7 @@ CREATE TEMP TABLE tb_endereco_tmp(
 ```
 
 
-140) **Inserções na Tabela com o domíno criado:**
+144) **Inserções na Tabela com o domíno criado:**
 ```sql
 INSERT INTO tb_endereco_tmp (cep, logradouro, numero, cidade, uf) VALUES
     (1001000, 'Pça. da Sé', null,'São Paulo','SP'),
@@ -1981,7 +1981,7 @@ INSERT INTO tb_endereco_tmp (cep, logradouro, numero, cidade, uf) VALUES
 ```
 
 
-141) **Selecionando os dados:**
+145) **Selecionando os dados:**
 ```sql
 SELECT
     to_char(cep, '00000-000') "CEP",
@@ -2141,7 +2141,7 @@ $$ LANGUAGE linguagem;
 ### PL/pgSQL
 
 
-142) **Criação da função fc_foo sem parâmetros:**
+146) **Criação da função fc_foo sem parâmetros:**
 ```sql
 CREATE OR REPLACE FUNCTION fc_foo()
 RETURNS VARCHAR AS $$
@@ -2152,7 +2152,7 @@ END; $$ LANGUAGE PLPGSQL;
 ```
 
 
-143) **Criação da função fc_foo com parâmetros:**
+147) **Criação da função fc_foo com parâmetros:**
 ```sql
 CREATE OR REPLACE FUNCTION fc_foo(num1 INT, num2 INT)
 RETURNS INT AS $$
@@ -2164,7 +2164,7 @@ BEGIN
 END; $$ LANGUAGE PLPGSQL;
 ```
 
-144) **Execução da função fc_foo sem parâmetros:**
+148) **Execução da função fc_foo sem parâmetros:**
 ```sql
 SELECT fc_foo();
 ```
@@ -2174,7 +2174,7 @@ fc_foo
 Hello, World!
 </pre>
 
-145) **Execução da função fc_foo com parâmetros:**
+149) **Execução da função fc_foo com parâmetros:**
 ```sql
 SELECT fc_foo(2, 5);
 ```
@@ -2197,12 +2197,12 @@ codigo
 $$ LANGUAGE linguagem;
 ```
 
-146) **Ajustando o nível de mensagens para a aplicação cliente:**
+150) **Ajustando o nível de mensagens para a aplicação cliente:**
 ```sql
 SET client_min_messages = 'notice';
 ```
 
-147) **Bloco anônimo para mostrar o número conexões ao banco no momento:**
+151) **Bloco anônimo para mostrar o número conexões ao banco no momento:**
 ```sql
 DO $$
 DECLARE n_con INT;
@@ -2226,13 +2226,13 @@ NOTICE:  Número de conexões não-locais ao banco: 10
 
 
 
-148) **($) Crie o diretório Python para módulos:**
+152) **($) Crie o diretório Python para módulos:**
 
 ```bash
 mkdir /var/lib/pgsql/python
 ```
 
-149) **($) Variável de ambiente Python no arquivo de perfil do usuário de
+153) **($) Variável de ambiente Python no arquivo de perfil do usuário de
 sistema postgres:**
 
 ```bash
@@ -2240,7 +2240,7 @@ echo 'export PYTHONPATH="${PYTHONPATH}:/var/lib/pgsql/python' >> \
 ~postgres/.bashrc
 ```
 
-150) **($) Variável de ambiente Python no arquivo de perfil do usuário de
+154) **($) Variável de ambiente Python no arquivo de perfil do usuário de
 sistema postgres:**
 
 ```bash
@@ -2248,7 +2248,7 @@ echo 'export PYTHONPATH="${PYTHONPATH}:/var/lib/pgsql/python' >> \
 ~postgres/.bashrc
 ```
 
-151) **(#) Podemos incluir a variável PYTHONPATH no Unit File SystemD do serviço
+155) **(#) Podemos incluir a variável PYTHONPATH no Unit File SystemD do serviço
 do PostgreSQL:**
 
 ```bash
@@ -2263,31 +2263,31 @@ Na sessão Unit, diretiva Environment do Unit File:
 Environment=PYTHONPATH=/var/lib/pgsql/python
 ```
 
-152) **(#) Reinicialize o serviço do PostgreSQL:**
+156) **(#) Reinicialize o serviço do PostgreSQL:**
 
 ```bash
 systemctl restart postgresq.service
 ```
 
-153) **No psql, criar a base de dados de exemplo:**
+157) **No psql, criar a base de dados de exemplo:**
 
 ```sql
 CREATE DATABASE db_plpython;
 ```
 
-154) **Conectar à base:**
+158) **Conectar à base:**
 
 ```
 \c db_plpython
 ```
 
-155) **Habilitar PL/Python 3 na base de dados atual:**
+159) **Habilitar PL/Python 3 na base de dados atual:**
 
 ```sql
 CREATE EXTENSION plpython3u;
 ```
 
-156) **Uma simples função anônima:**
+160) **Uma simples função anônima:**
 
 ```sql
 DO $$                       
@@ -2301,7 +2301,7 @@ $$ LANGUAGE PLPYTHON3U;
 </pre>
 
 
-157) **Função em PL/Python 3 sem argumentos:**
+161) **Função em PL/Python 3 sem argumentos:**
 
 ```sql
 CREATE OR REPLACE FUNCTION fc_py()
@@ -2312,7 +2312,7 @@ return 'Hello, World!!!'
 $$ LANGUAGE plpython3u;
 ```
 
-158) **Sobrecarga de função:**
+162) **Sobrecarga de função:**
 
 ```sql
 CREATE OR REPLACE FUNCTION fc_py(num1 INT, num2 INT)
@@ -2322,7 +2322,7 @@ return num1 + num2
 $$ LANGUAGE plpython3u;
 ```
 
-159) **Testando a primeira função criada:**
+163) **Testando a primeira função criada:**
 
 ```sql
 SELECT fc_py();
@@ -2334,7 +2334,7 @@ fc_py
 Hello, World!!!
 </pre>
 
-160) **Testando a segunda função criada:**
+164) **Testando a segunda função criada:**
 
 ```sql
 SELECT fc_py(2, 5);
@@ -2347,7 +2347,7 @@ fc_py
 </pre>
 
 
-161) **($) Criação do módulo teste dentro do diretório que está em PYTHONPATH:**
+165) **($) Criação do módulo teste dentro do diretório que está em PYTHONPATH:**
 
 ```bash
 cat << EOF > /var/lib/pgsql/python/teste.py
@@ -2357,13 +2357,13 @@ def py_version():
 EOF
 ```
 
-162) **($) Conexão ao banco via psql:**
+166) **($) Conexão ao banco via psql:**
 
 ```bash
 psql db_plpython
 ```
 
-163) **Criação da função seguindo as boas práticas:**
+167) **Criação da função seguindo as boas práticas:**
 
 ```sql
 CREATE OR REPLACE FUNCTION fc_py_version()
@@ -2375,7 +2375,7 @@ return py_version()
 $$ LANGUAGE plpython3u;
 ```
 
-164) **Teste da função:**
+168) **Teste da função:**
 
 ```sql
 SELECT 'Minha versão de Python é: '|| fc_py_version()
