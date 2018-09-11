@@ -273,7 +273,7 @@ SELECT '192.168/25'::cidr;
 </pre>
 
 
-18)  **Validação IPv4:**
+18)  **Validação IPv6:**
 ```sql
 SELECT 'fe80::f67e:5b4f:d208:713a/64'::inet;
 ```
@@ -310,13 +310,17 @@ SELECT pg_column_size('fe80::f67e:5b4f:d208:713a/64'::inet);
 
 21)  **Máscara para CPF:**
 ```sql
-SELECT to_char(39684721495, '999"."999"."999-99') AS cpf;
+SELECT to_char(39684721495, '000"."000"."000-00') AS cpf;
 ```
 <pre>
        cpf       
 -----------------
   396.847.214-95
 </pre>
+
+<br />
+Na máscara foi utilizado zeros para CPFs que têm zeros à esquerda.
+<br />
 
 
 
