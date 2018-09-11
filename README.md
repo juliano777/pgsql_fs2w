@@ -318,9 +318,8 @@ SELECT to_char(39684721495, '000"."000"."000-00') AS cpf;
   396.847.214-95
 </pre>
 
-<br />
 Na máscara foi utilizado zeros para CPFs que têm zeros à esquerda.
-<br />
+<br /><br />
 
 
 
